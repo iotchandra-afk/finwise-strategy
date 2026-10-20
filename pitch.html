@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="FinWise: Product Analytics & Experimentation executive strategy pitch, six-module final project by Chandra Kanojia.">
+  <title>FinWise | From first trusted decision to durable paid value</title>
+  <style>
+    :root { --ink:#10263b; --navy:#10263b; --blue:#145bd7; --teal:#008d85; --teal-lite:#dff5ee; --paper:#f7f7f3; --white:#fff; --line:#ced8de; --quiet:#576778; --red:#af3b43; --amber:#ad6007; --yellow:#f0f7c8; --shadow:0 28px 90px #07192720; }
+    *, *::before, *::after { box-sizing:border-box; }
+    html { background:#dce5ea; }
+    body { margin:0; color:var(--ink); background:#dce5ea; font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased; }
+    button, a { font:inherit; }
+    a { color:inherit; }
+    a:focus-visible, button:focus-visible { outline:3px solid #ffb71c; outline-offset:4px; }
+    .deck { min-height:100dvh; display:grid; place-items:center; padding:30px 22px 98px; }
+    .slide { position:relative; display:none; flex-direction:column; width:min(100%,1320px); min-height:min(750px,calc(100dvh - 135px)); margin:auto; padding:clamp(30px,4.6vw,69px) clamp(32px,5.2vw,83px) clamp(34px,4vw,57px); background:var(--paper); box-shadow:var(--shadow); overflow:hidden; }
+    .slide.active { display:flex; }
+    .slide.dark { background:var(--navy); color:white; }
+    .slide.white { background:#fff; }
+    .slide.blue { background:#1355bd; color:white; }
+    .topline { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom:24px; font-size:12px; letter-spacing:.1em; text-transform:uppercase; font-weight:800; }
+    .topline .section { color:var(--teal); }
+    .dark .topline .section, .blue .topline .section { color:#90f5d4; }
+    .topline .folio { opacity:.65; }
+    h1,h2,h3,p { margin:0; }
+    h1 { max-width:1130px; font-size:clamp(45px,5.6vw,82px); line-height:1.055; font-weight:820; letter-spacing:-.065em; }
+    h2 { max-width:1130px; font-size:clamp(35px,4vw,57px); line-height:1.075; font-weight:810; letter-spacing:-.052em; }
+    h3 { font-size:clamp(19px,1.65vw,25px); line-height:1.22; letter-spacing:-.022em; }
+    .lede { max-width:980px; font-size:clamp(19px,1.65vw,25px); line-height:1.4; color:var(--quiet); margin-top:19px; }
+    .dark .lede,.blue .lede { color:#d6e7ec; }
+    .mark { color:var(--teal); }
+    .dark .mark,.blue .mark { color:#8bf1d0; }
+    .rule { border:0; border-top:1px solid var(--line); margin:25px 0; }
+    .dark .rule,.blue .rule { border-color:#5b788b; }
+    .small { font-size:15px; line-height:1.43; }
+    .micro { font-size:12px; line-height:1.42; }
+    .dim { color:var(--quiet); }
+    .dark .dim,.blue .dim { color:#c0d3de; }
+    .eyebrow { color:var(--teal); font-size:12px; font-weight:850; letter-spacing:.12em; text-transform:uppercase; }
+    .dark .eyebrow,.blue .eyebrow { color:#89f0cf; }
+    .push { margin-top:auto; }
+    .callout { padding:19px 23px; border-left:5px solid var(--teal); background:#e5f3f0; font-weight:720; font-size:clamp(17px,1.5vw,22px); line-height:1.35; }
+    .dark .callout { color:white; background:#224257; border-left-color:#8bf1d0; }
+    .blue .callout { color:white; background:#2e6fc8; border-left-color:#9af6d4; }
+    .footer { display:flex; align-items:flex-end; justify-content:space-between; gap:25px; padding-top:22px; margin-top:auto; font-size:12px; line-height:1.35; color:var(--quiet); }
+    .dark .footer,.blue .footer { color:#b7cbd7; }
+    .footer .source { max-width:80%; }
+    .footer .name { white-space:nowrap; font-weight:760; }
+    .dividerline { height:1px; background:var(--line); margin-top:20px; }
+    .dark .dividerline,.blue .dividerline { background:#5b788b; }
+    .cover-tag { margin:24px 0 17px; display:inline-block; width:fit-content; color:#91f3d6; font-size:13px; letter-spacing:.12em; text-transform:uppercase; font-weight:780; }
+    .cover-lead { max-width:950px; color:#d6e7ec; font-size:clamp(20px,1.83vw,27px); line-height:1.42; margin-top:32px; }
+    .cover-bottom { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:end; padding-top:30px; border-top:1px solid #486175; margin-top:auto; }
+    .cover-bottom .meta { color:#bfd1dc; font-size:13px; line-height:1.5; }
+    .cover-bottom .stance { color:#8ff3d3; font-weight:760; font-size:17px; text-align:right; line-height:1.35; }
+    .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:clamp(30px,5vh,55px); }
+    .stat { border-right:1px solid var(--line); padding:0 28px; }
+    .stat:first-child { padding-left:0; }
+    .stat:last-child { border:0; }
+    .stat .number { font-size:clamp(52px,6vw,91px); font-weight:830; letter-spacing:-.08em; line-height:1; }
+    .stat:nth-child(2) .number { color:var(--red); }
+    .stat:nth-child(3) .number { color:var(--teal); }
+    .stat .unit { margin-top:10px; font-weight:780; font-size:16px; line-height:1.32; }
+    .stat .explain { margin-top:10px; font-size:14px; line-height:1.37; color:var(--quiet); }
+    .mathline { display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:17px 0; margin-top:18px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-size:clamp(17px,1.7vw,23px); font-weight:760; letter-spacing:-.02em; }
+    .mathline span:nth-child(2),.mathline span:nth-child(4){ color:#738390; }
+    .mathline .result { color:var(--teal); font-weight:870; }
+    .columns { display:grid; grid-template-columns:1fr 1fr; gap:clamp(22px,3vw,50px); margin-top:35px; }
+    .thirds { display:grid; grid-template-columns:repeat(3,1fr); gap:25px; margin-top:39px; }
+    .colhead { border-top:4px solid var(--blue); padding-top:14px; }
+    .colhead.teal { border-color:var(--teal); }
+    .colhead.red { border-color:var(--red); }
+    .colhead .eyebrow { margin-bottom:10px; }
+    .colhead p { margin-top:9px; color:var(--quiet); font-size:16px; line-height:1.39; }
+    .sequence { display:grid; grid-template-columns:1fr 26px 1fr 26px 1fr; align-items:start; gap:13px; margin-top:42px; }
+    .step { border-top:4px solid var(--blue); padding-top:16px; }
+    .step .count { display:block; font-size:13px; letter-spacing:.09em; color:var(--teal); font-weight:800; margin-bottom:11px; }
+    .step p { font-size:16px; line-height:1.38; margin-top:10px; color:var(--quiet); }
+    .step-arrow { align-self:center; font-weight:900; font-size:28px; color:#748da0; }
+    .cash-band { display:grid; grid-template-columns:repeat(4,1fr); gap:0; padding:22px 0; margin-top:28px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .cash-band>div { border-right:1px solid var(--line); padding-left:22px; }
+    .cash-band>div:first-child { padding-left:0; }
+    .cash-band>div:last-child { border:0; }
+    .cash-band .value { display:block; font-size:clamp(29px,3vw,47px); font-weight:830; letter-spacing:-.06em; }
+    .cash-band .caption { display:block; font-size:13px; line-height:1.25; color:var(--quiet); margin-top:4px; }
+    .risk { color:var(--red); }
+    .success { color:var(--teal); }
+    .comparison { display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:31px; }
+    .compare { border-top:5px solid #738c9b; padding:17px 0 0; }
+    .compare.good { border-color:#7fe0bf; }
+    .compare.bad { border-color:#ffb0a9; }
+    .compare .condition { display:block; font-size:14px; line-height:1.3; font-weight:830; letter-spacing:.03em; color:#ddedf5; text-transform:uppercase; }
+    .compare .big { display:block; font-size:clamp(33px,3.9vw,58px); line-height:1.05; font-weight:840; margin:13px 0; letter-spacing:-.065em; }
+    .compare.good .big { color:#92f5d6; }
+    .compare.bad .big { color:#ffc6bf; }
+    .compare p { color:#d4e4ec; font-size:16px; line-height:1.39; }
+    .safeline { margin-top:28px; font-size:20px; line-height:1.43; font-weight:720; color:#f7f9fa; border-top:1px solid #68879a; padding-top:20px; }
+    .signal-rows { display:grid; grid-template-columns:1fr 1fr; gap:28px 33px; margin-top:35px; }
+    .signal { border-top:3px solid var(--teal); padding-top:15px; }
+    .signal strong { display:block; font-size:20px; letter-spacing:-.02em; }
+    .signal .metric { display:block; font-size:14px; font-weight:780; margin:7px 0; color:var(--blue); }
+    .signal p { color:var(--quiet); font-size:15px; line-height:1.42; }
+    .gate { display:grid; grid-template-columns:1.1fr 1fr; gap:36px; margin-top:34px; }
+    .gate-yes { padding:24px 28px; background:#e5f4ec; border-left:5px solid var(--teal); }
+    .gate-no { padding:24px 28px; background:#eef2f4; border-left:5px solid #728a9a; }
+    .gate h3 { margin-bottom:11px; }
+    .gate p, .gate li { font-size:15px; line-height:1.45; }
+    .gate ul { padding-left:19px; margin:13px 0 0; }
+    .gate li+li { margin-top:5px; }
+    .evidence { display:flex; align-items:center; gap:17px; flex-wrap:wrap; margin-top:27px; font-size:14px; line-height:1.3; }
+    .evidence strong { color:var(--teal); font-size:22px; }
+    .pricing { display:grid; grid-template-columns:1fr 1.12fr 1fr; gap:20px; margin-top:36px; }
+    .plan { display:flex; flex-direction:column; gap:12px; border-top:5px solid #9aabb4; padding:20px 12px 0 0; }
+    .plan.feature { border-color:#7deac4; }
+    .plan h3 { font-size:25px; }
+    .plan .price { font-size:clamp(32px,3.9vw,52px); font-weight:840; letter-spacing:-.06em; line-height:1.05; }
+    .plan.feature .price { color:#8cf4d4; }
+    .plan p { font-size:15px; line-height:1.44; color:#d4e5ed; }
+    .plan .flag { color:#9befd8; font-size:12px; letter-spacing:.08em; font-weight:840; text-transform:uppercase; }
+    .roadmap { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:41px; }
+    .phase { border-top:5px solid var(--blue); padding:17px 0 0; }
+    .phase .time { display:block; color:var(--teal); font-weight:850; font-size:14px; margin-bottom:15px; }
+    .phase h3 { font-size:20px; }
+    .phase p { font-size:15px; line-height:1.42; margin-top:12px; color:var(--quiet); }
+    .decision { display:grid; grid-template-columns:1.15fr .85fr; gap:48px; margin-top:55px; }
+    .decision .frame { border-top:4px solid var(--teal); padding-top:18px; }
+    .decision .frame h3 { font-size:23px; margin-bottom:11px; }
+    .decision .frame p { color:var(--quiet); font-size:17px; line-height:1.43; }
+    .controls { position:fixed; z-index:10; bottom:21px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:13px; background:#10263bed; color:#fff; padding:11px 15px; border-radius:80px; box-shadow:0 14px 55px #10263b55; backdrop-filter:blur(12px); }
+    .controls button { cursor:pointer; width:38px; height:38px; border-radius:50%; border:1px solid #718ba1; background:#254459; color:white; font-size:22px; line-height:1; }
+    .controls button:disabled { opacity:.25; cursor:not-allowed; }
+    .controls button:hover:not(:disabled){ background:#256cd0; }
+    .controls #counter { min-width:71px; text-align:center; font-size:14px; font-variant-numeric:tabular-nums; font-weight:750; }
+    .controls #print { border-radius:50px; width:auto; padding:0 15px; font-size:13px; font-weight:710; }
+    .controls .hint { font-size:11px; color:#c5dce8; padding:0 8px 0 4px; white-space:nowrap; }
+    @media(max-width:840px){
+      .deck{ padding:10px 10px 91px; } .slide{ min-height:calc(100dvh - 111px); padding:29px 26px 30px; overflow:visible; }
+      .columns,.comparison,.gate,.decision{ grid-template-columns:1fr; } .pricing,.thirds{ grid-template-columns:1fr; gap:20px; }
+      .stats{ grid-template-columns:repeat(3,1fr); }.stat{ padding:0 12px; } .stat .number { font-size:clamp(28px,6vw,50px); }
+      .cash-band{ grid-template-columns:1fr 1fr; gap:15px 0; } .cash-band>div:nth-child(2){border:0;}
+      .sequence{ grid-template-columns:1fr; gap:9px; }.step-arrow{ transform:rotate(90deg); justify-self:center; font-size:18px; } .roadmap{grid-template-columns:1fr 1fr;}
+      .topline{ font-size:10px; } .footer{font-size:10px;} .controls .hint{display:none;}
+    }
+    @media(max-width:460px){
+      .stats,.signal-rows{grid-template-columns:1fr; gap:20px;} .stat { border:0; border-top:1px solid var(--line); padding:13px 0 0; }
+      .stat:first-child{border:0;} .cash-band{grid-template-columns:1fr 1fr;}.roadmap{grid-template-columns:1fr;}
+      .cover-bottom{grid-template-columns:1fr;}.cover-bottom .stance{text-align:left;} .slide{padding:25px 20px 28px;}
+    }
+    @media print {
+      @page { size:landscape; margin:0; }
+      html,body { background:white!important; }
+      .deck { padding:0; display:block; }
+      .slide,.slide.active { display:flex!important; width:100%; height:100vh; min-height:0; box-shadow:none; margin:0; break-after:page; page-break-after:always; overflow:hidden; }
+      .controls { display:none!important; }
+      .slide:last-child { break-after:auto; page-break-after:auto; }
+      .dark { print-color-adjust:exact; -webkit-print-color-adjust:exact; } .blue { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+    }
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;}}
+  </style>
+</head>
+<body>
+<main class="deck" id="deck" aria-live="off">
+
+  <section class="slide dark active" data-slide="1" aria-label="1. Executive thesis">
+    <div class="topline"><span class="section">FinWise / Product Analytics & Experimentation</span><span class="folio">Executive product strategy / 01</span></div>
+    <div class="cover-tag">The central bet</div>
+    <h1>From first <span class="mark">trusted decision</span> to durable paid value.</h1>
+    <p class="cover-lead">FinWise does not need more trial volume until it knows why small-business owners fail to reach, revisit, and pay for a decision they can trust.</p>
+    <div class="cover-bottom">
+      <div class="meta">Chandra Kanojia · Senior PM perspective<br>Six connected product decisions · October 2026<br>Proposal and synthetic product demonstration</div>
+      <div class="stance">Strategy → decision quality → repeated utility → retained contribution</div>
+    </div>
+  </section>
+
+  <section class="slide white" data-slide="2" aria-label="2. Growth economics">
+    <div class="topline"><span class="section">01 / Diagnose the business</span><span class="folio">02</span></div>
+    <h2>Two commercial leaks.<br><span class="mark">No demonstrated root cause.</span></h2>
+    <p class="lede">The supplied case tells us where revenue fails to compound—not whether the fix is onboarding, repeat utility, channel quality, or the paywall.</p>
+    <div class="stats">
+      <div class="stat"><div class="number">1,000</div><div class="unit">trial starts</div><div class="explain">Illustrative starting cohort</div></div>
+      <div class="stat"><div class="number">20</div><div class="unit">paying accounts</div><div class="explain">Case conversion: 2%</div></div>
+      <div class="stat"><div class="number">8</div><div class="unit">still paid after one year</div><div class="explain">Case paid retention: 40%*</div></div>
+    </div>
+    <div class="mathline"><span>2% convert</span><span>×</span><span>40% remain paid</span><span>=</span><span class="result">0.8% conditional durable trial yield</span></div>
+    <div class="callout push">Executive diagnosis: Do not buy more traffic until one of four competing constraints is established with account-level evidence.</div>
+    <div class="footer"><span class="source">*Eight per 1,000 assumes conversion and retention rates cover compatible cohorts and follow-up windows; no matched cohort was supplied.</span><span class="name">FINWISE / 02</span></div>
+  </section>
+
+  <section class="slide" data-slide="3" aria-label="3. First-value product moment">
+    <div class="topline"><span class="section">02 / Earn the first decision</span><span class="folio">03</span></div>
+    <h2>A finance Aha is a <span class="mark">decision</span>,<br>not a completed import.</h2>
+    <p class="lede">Owner question: “If my two customers pay late, can I still meet payroll and bills?”</p>
+    <div class="cash-band" aria-label="Synthetic cash scenario facts">
+      <div><span class="value">$42.5k</span><span class="caption">opening modeled cash</span></div>
+      <div><span class="value">$20k</span><span class="caption">owner-selected floor</span></div>
+      <div><span class="value risk">Day 7</span><span class="caption">first modeled floor breach</span></div>
+      <div><span class="value risk">$10.4k</span><span class="caption">gap at day-11 low of $9.6k</span></div>
+    </div>
+    <div class="sequence">
+      <div class="step"><span class="count">01 / Evidence</span><h3>What can be used?</h3><p>Permissioned transactions, bank-available funds, source freshness, dated payroll and vendor obligations.</p></div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="step"><span class="count">02 / Judgment</span><h3>What is at risk?</h3><p>Two fictional receipts totaling $19.5k slip. The owner inspects floor crossing, assumptions and unknowns.</p></div>
+      <div class="step-arrow" aria-hidden="true">→</div>
+      <div class="step"><span class="count">03 / Decision</span><h3>What changes now?</h3><p>Record a buffer/collections check before the *verified* payment cutoff. FinWise moves no money.</p></div>
+    </div>
+    <div class="footer"><span class="source">All amounts are synthetic and end-of-day modeled; bank cutoffs, payroll taxes and omitted commitments remain unverified. No solvency or payroll assurance.</span><span class="name">FINWISE / 03</span></div>
+  </section>
+
+  <section class="slide dark" data-slide="4" aria-label="4. Retention and evidence integrity">
+    <div class="topline"><span class="section">03 / Earn the next review</span><span class="folio">04</span></div>
+    <h2>When “paid” is <span class="mark">not</span> “available.”</h2>
+    <p class="lede">Decision Delta compares the original plan with a *verified changed fact*—and must distinguish a bookkeeping state from spendable cash.</p>
+    <div class="comparison">
+      <div class="compare bad"><span class="condition">Invoice A marked paid · funds pending</span><span class="big">$10,400 gap</span><p>The risk remains. A paid accounting flag alone cannot change the bank-available forecast or retire the warning.</p></div>
+      <div class="compare good"><span class="condition">Invoice A $12,800 available on day 5</span><span class="big">$2,400 headroom</span><p>Synthetic modeled day-11 low becomes $22,400. The owner reassesses—but only after verifying taxes, holds and cutoffs.</p></div>
+    </div>
+    <p class="safeline">Real retention mechanism: save decision → verified material change → evidence-backed comparison → owner keeps, revises or escalates. When nothing meaningful changes, <span class="mark">silence is good product behavior.</span></p>
+    <div class="footer"><span class="source">Illustrative scenarios. No real bank data, automated payment, financing, collection action or production alerting is asserted.</span><span class="name">FINWISE / 04</span></div>
+  </section>
+
+  <section class="slide white" data-slide="5" aria-label="5. Measurement system">
+    <div class="topline"><span class="section">04 / Measure what matters</span><span class="folio">05</span></div>
+    <h2>Instrument the decision.<br><span class="mark">Then test the mechanism.</span></h2>
+    <p class="lede">Business-account cohorts connect behavioral evidence to commercial outcomes; a notification click or longer session does not.</p>
+    <div class="signal-rows">
+      <div class="signal"><strong>L1 · Verified first decision</strong><span class="metric">7-day activation / all pre-eligible trial businesses</span><p>Real usable data, documented assumptions, critical obligation coverage and owner-recorded disposition. Failed imports stay in the denominator.</p></div>
+      <div class="signal"><strong>L2 · Verified second review</strong><span class="metric">By day 28 / activated businesses</span><p>A material changed fact or deliberate reappraisal and new decision record. Report who had a genuine review opportunity.</p></div>
+      <div class="signal"><strong>G1 · First paid conversion</strong><span class="metric">Valid payments / trial starts at comparable term</span><p>Case baseline 2%. Segment by source and reverse-trial handoff; do not use L1 as proof of commercial improvement.</p></div>
+      <div class="signal"><strong>G2 · Retention + contribution</strong><span class="metric">90/365-day paid survival and account margin</span><p>Case annual retention 40%. Include source fees, exception handling, support and acquisition economics before declaring growth.</p></div>
+    </div>
+    <div class="callout push">Non-negotiable gate: A false “funds available / all clear,” missed critical obligation, or confidentiality failure is a product incident—not an acceptable conversion trade-off.</div>
+    <div class="footer"><span class="source">Only aggregate case facts are observed. No user-level event data, actual correlations or experimental effects are provided.</span><span class="name">FINWISE / 05</span></div>
+  </section>
+
+  <section class="slide" data-slide="6" aria-label="6. Validation experiment">
+    <div class="topline"><span class="section">05 / A gated experiment</span><span class="folio">06</span></div>
+    <h2>Do not A/B test a <span class="mark">guess</span><br>about the bottleneck.</h2>
+    <p class="lede">First audit the journey. Only if the loss is pre-value friction should FinWise randomize decision-first onboarding against its unchanged current experience.</p>
+    <div class="gate">
+      <div class="gate-yes"><span class="eyebrow">If evidence supports H1</span><h3>Account-randomized, 50/50</h3><p>Persist assignment across users/devices. Primary estimand: seven-day verified activation in all pre-eligible randomized businesses (intention to treat).</p><ul><li>Keep model, data-risk gates, pricing and offers constant.</li><li>Blinded audit of valid decision events and source truth.</li><li>Follow paid conversion and survival separately as cohorts mature.</li></ul></div>
+      <div class="gate-no"><span class="eyebrow">If the constraint is elsewhere</span><h3>Redirect the investment</h3><p><strong>Value achieved, no payment?</strong> Examine trial-to-Starter downgrade and price fit.</p><p style="margin-top:11px"><strong>Value achieved once, no return?</strong> Test the recurring job and segment.</p><p style="margin-top:11px"><strong>Bad channel mix or unusable data?</strong> Fix those before an interface experiment.</p></div>
+    </div>
+    <div class="evidence"><strong>~3,841 / arm</strong><span>Hypothetical 10% → 12% VDA7, two-sided 5% α and 80% power. Requires actual traffic/power redesign.</span></div>
+    <div class="footer"><span class="source">Experiment is not run. Read after enrollment closes plus the fixed 7-day outcome and 3-day processing lag (T_close + 10 days); safety failures stop rollout.</span><span class="name">FINWISE / 06</span></div>
+  </section>
+
+  <section class="slide dark" data-slide="7" aria-label="7. Pricing and packaging">
+    <div class="topline"><span class="section">06 / Earn the subscription</span><span class="folio">07</span></div>
+    <h2>Charge for <span class="mark">decision continuity.</span><br>Never charge for trust.</h2>
+    <p class="lede">The reverse trial demonstrates first and second value. The entitlement boundary makes recurring monitoring explicit—with no hidden financial-risk state.</p>
+    <div class="pricing">
+      <div class="plan"><h3>Reverse trial</h3><span class="price">Time-limited</span><p>Experience the full proposed workflow and a verified decision. Date, price and downgrade behavior disclosed up front.</p><span class="flag">Exact existing trial term unknown</span></div>
+      <div class="plan feature"><h3>Owner Plus</h3><span class="price">$59 / business</span><p>Candidate monthly offer: qualified source monitoring, changed-decision reviews, versioned evidence and controlled notifications.</p><span class="flag">Test $39 / $59 / $89; not validated</span></div>
+      <div class="plan"><h3>Starter</h3><span class="price">No charge</span><p>Own, export and correct decisions; clearly dated, bounded snapshots. If no live monitoring, say so unmistakably.</p><span class="flag">Costs and entitlement limits to verify</span></div>
+    </div>
+    <div class="callout push">The economic gate: At a *hypothetical* $59 price, a proposed 70% account contribution target allows up to $17.70/month in recurring variable costs. Actual connector, support, survival and CAC data are missing.</div>
+    <div class="footer"><span class="source">No real FinWise prices or observed willingness to pay supplied. Keep the critical warning context and customer-owned history accessible after downgrade.</span><span class="name">FINWISE / 07</span></div>
+  </section>
+
+  <section class="slide white" data-slide="8" aria-label="8. Investment decision">
+    <div class="topline"><span class="section">The decision / 12 months</span><span class="folio">08</span></div>
+    <h2>Fund the <span class="mark">evidence sequence.</span><br>Scale only a sound loop.</h2>
+    <div class="roadmap">
+      <div class="phase"><span class="time">0–60 days</span><h3>Establish truth</h3><p>Audit cohorts, onboarding, data quality, offers, costs and churn interviews.</p></div>
+      <div class="phase"><span class="time">60–120 days</span><h3>Verify first + repeat value</h3><p>Conditional onboarding A/B; test safe Decision Delta, not notification volume.</p></div>
+      <div class="phase"><span class="time">120–240 days</span><h3>Earn the price</h3><p>Test the paid job, subscription terms and price separately from activation.</p></div>
+      <div class="phase"><span class="time">240–365 days</span><h3>Scale or change course</h3><p>Expand only where mature paid survival, contribution and trust improve.</p></div>
+    </div>
+    <div class="decision">
+      <div class="frame"><h3>The approval I would seek</h3><p>Instrumentation, financial-data quality controls, focused owner research and a gated activation experiment—not a blanket paid-acquisition increase or premature price launch.</p></div>
+      <div class="frame"><h3>The outcome that earns expansion</h3><p><strong>More retained profitable paying businesses per qualified trial,</strong> with no material worsening in financial decision safety.</p></div>
+    </div>
+    <div class="footer"><span class="source">A strategic proposal; no new FinWise customer study, production feature, experiment result or revenue projection is claimed. Source: Product School FinWise brief and Modules 1–6.</span><span class="name">CHANDRA KANOJIA</span></div>
+  </section>
+</main>
+
+<nav class="controls" aria-label="Slide navigation">
+  <button type="button" id="previous" aria-label="Previous slide">‹</button>
+  <span id="counter" aria-live="polite">1 / 8</span>
+  <button type="button" id="next" aria-label="Next slide">›</button>
+  <button type="button" id="print" title="Print or save as PDF">Print / PDF</button>
+  <span class="hint">← → to navigate</span>
+</nav>
+<script>
+  (function () {
+    'use strict';
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var index = 0;
+    var previous = document.getElementById('previous');
+    var next = document.getElementById('next');
+    var counter = document.getElementById('counter');
+    function show(number) {
+      index = Math.max(0, Math.min(slides.length - 1, number));
+      slides.forEach(function (slide, i) {
+        var visible = i === index;
+        slide.classList.toggle('active', visible);
+        slide.setAttribute('aria-hidden', visible ? 'false' : 'true');
+        if ('inert' in slide) slide.inert = !visible;
+      });
+      counter.textContent = (index + 1) + ' / ' + slides.length;
+      previous.disabled = index === 0;
+      next.disabled = index === slides.length - 1;
+      var targetHash = '#slide-' + (index + 1);
+      if (window.location.hash !== targetHash) history.replaceState(null, '', targetHash);
+    }
+    previous.addEventListener('click', function () { show(index - 1); });
+    next.addEventListener('click', function () { show(index + 1); });
+    document.getElementById('print').addEventListener('click', function () { window.print(); });
+    document.addEventListener('keydown', function (event) {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      if (event.key === 'ArrowRight' || event.key === 'PageDown') { event.preventDefault(); show(index + 1); }
+      if (event.key === 'ArrowLeft' || event.key === 'PageUp') { event.preventDefault(); show(index - 1); }
+      if (event.key === 'Home') { event.preventDefault(); show(0); }
+      if (event.key === 'End') { event.preventDefault(); show(slides.length - 1); }
+    });
+    window.addEventListener('hashchange', function () {
+      var match = window.location.hash.match(/^#slide-(\d+)$/);
+      if (match) show(Number(match[1]) - 1);
+    });
+    var match = window.location.hash.match(/^#slide-(\d+)$/);
+    show(match ? Number(match[1]) - 1 : 0);
+  }());
+</script>
+</body>
+</html>
