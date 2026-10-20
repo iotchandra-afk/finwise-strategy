@@ -18,7 +18,9 @@
 
 **Who it is for:** The Module 1–2 working segment, an owner-operated small business with irregular cash receipts and no dedicated finance team. A bookkeeper supervising many businesses has a different trigger/authority model and should not silently inherit this workflow.
 
-**One return-worthy moment:** The Module 2 illustrative decision assumed that Customer A's $12,800 and Customer B's $6,700 invoices arrive late. With a $20,000 operating floor, its low point was **$9,600**, a **$10,400 gap**. Now Customer A's payment is **simulated as posted on day 5**. The revised low is **$22,400 on day 11**, giving **$2,400 headroom**. The modeled improvement is $12,800, exactly the changed receipt. The owner should reassess the planned buffer, while verifying Customer B, payroll taxes and unlisted commitments. No money is moved and no financial action is autonomously canceled.
+**One return-worthy moment:** The Module 2 illustrative decision assumed that Customer A's $12,800 and Customer B's $6,700 invoices arrive late. With a $20,000 operating floor, its low point was **$9,600**, a **$10,400 gap**. Now Customer A's $12,800 payment is **simulated as bank-reconciled and available on day 5**, before the relevant payment deadline. The revised low is **$22,400 on day 11**, giving **$2,400 modeled headroom**. The improvement is exactly the newly available receipt, not profit or proof that payroll is funded. The owner should reassess the planned buffer, while verifying Customer B, payroll taxes, bank holds and unlisted commitments. No money is moved and no financial action is autonomously canceled.
+
+**The financial-services distinction that matters:** *Invoice issued* → *marked paid in accounting* → *bank-posted* → *reconciled and available to spend by the obligation's cutoff* are different states. An invoice marked paid cannot retire a payroll-risk warning. Even a bank posting may be pending, held, offset or unavailable before a payroll ACH deadline. The decision model credits cash only when usable availability and timing are established. The wireframe includes a fifth state, **“marked paid, funds pending,”** that leaves the $10,400 modeled gap intact. The cutoff date and payroll-tax obligations remain unverified in this synthetic case, so even the positive scenario is **not** a payroll all-clear.
 
 This is a much more useful reason to return than *“You haven't logged in for seven days.”* Equally important, **when nothing material changes, the correct product behavior may be silence**.
 
@@ -27,18 +29,29 @@ This is a much more useful reason to return than *“You haven't logged in for s
 FinWise is handling information that can influence payroll, supplier relationships and credit decisions. An inaccurate “all clear” is more dangerous than a missed engagement opportunity. Before emitting a decision-level alert, require all of the following:
 
 1. **A decision exists:** It belongs to an authorized account and has a recorded cash floor, scenario assumptions, review status and a source version.
-2. **A real change exists:** New source-event ID or user-confirmed obligation change; transaction freshness and posting/reconciliation state are visible. A mere forecast recalculation or unverified due date is not new evidence.
+2. **A real change exists:** New source-event ID or user-confirmed obligation change; transaction freshness, settlement, reconciliation, usable availability and timing are visible. A bookkeeping “paid” flag, forecast recalculation or unverified due date is not evidence of spendable cash.
 3. **It changes the decision materially:** For a *candidate* initial threshold, notify when the projected low changes by at least `max($1,000, 5% of the chosen cash floor)`, **or** crosses the chosen floor, **or** a critical payment/obligation changes status. These values need calibration; they are not learned from the supplied files.
-4. **It is explainable:** Show old versus new facts, which item moved, its date, model version, and residual uncertainty. If key inputs are stale, present *“recheck your data before deciding”* rather than a confident balance claim.
+4. **It is explainable:** Show old versus new facts, the underlying event, effective and available dates, model version, and residual uncertainty. If bank funds, payroll/tax liabilities or other critical obligations are unverified, present *“recheck your data before deciding”* rather than a confident balance claim.
 5. **It is authorized and proportionate:** Honor channel consent and user role, bundle duplicate events, provide snooze/off controls, avoid financial details in email/push previews, and never autonomously approve borrowing, defer payroll, contact a customer or modify payment instructions.
 
 **Operational limit:** One alert per material decision/version change, with idempotent event handling and sensible bundling; interrupt again only for a new genuinely consequential event. An exception resolution may itself be a useful trigger. Alert frequency should be measured as a *cost* borne by customers, not a growth target.
+
+### Operational risk has an order, not just an alert threshold
+
+| Failure mode | Consequence and time horizon | Safe product response and authority |
+| --- | --- | --- |
+| **False “funds available / all clear”** from a paid flag, hold, duplicate transfer or missing taxes | **Critical:** owner may cancel a buffer plan and miss payroll or another non-deferrable payment. Harm can crystallize before the next login. | Do not release the risk state without reconciled *available* funds and sufficient obligation coverage. Mark readiness **unverified**; preserve the earlier mitigation pending an owner check. |
+| **Missed material cash shortfall** near payroll or other hard cutoff | **Critical and deadline-bound:** a correct warning after the bank's processing cutoff may be useless. | Use verified obligations and timing to surface a priority cue before the **actual** deadline; show who must act. If deadline/authority is unknown, request confirmation, never invent it. |
+| **False shortfall or repeat warning** | **High but usually more reversible:** anxiety, wasted owner time, unnecessary financing calls and trust loss. | Show evidence, corrections and confidence; suppress duplicates; pause a noisy event class. Human owner chooses financial action. |
+| **Unimportant change not surfaced** | **Lower** when no consequential decision or cutoff is affected. | Log quietly; avoid notification-volume targets. |
+
+This is a proposed harm-based policy, not a calibrated risk model. Product, finance-domain, risk and support owners would set incident severities, recovery playbooks and evidence thresholds before launch. The owner can **keep, revise or escalate** a plan; FinWise never treats an alert as authority to move funds, defer payroll or initiate borrowing.
 
 ### Failure states that should stop the loop
 
 | State | Safe response |
 | --- | --- |
-| Bank snapshot stale, import failed, transfer double-counted, or material obligation missing | Hold a confident cash verdict; explain the gap and offer correction/support. |
+| Bank snapshot stale, import failed, transfer double-counted, funds on hold, ACH cutoff unknown, or material payroll/tax obligation missing | Hold a confident cash verdict; preserve the last defensible risk state, explain the gap and offer correction/support. |
 | Event comes from an account or role without permission | Do not use or expose it for this customer's decision. Log access-control failure internally. |
 | Small change does not cross an action threshold | Keep history updated; no unsolicited prompt. |
 | Customer already reviewed this source version | Suppress duplicate notification. |
@@ -57,7 +70,7 @@ FinWise is handling information that can influence payroll, supplier relationshi
 | **Assumptions and source audit** | *Why should I believe the new calculation? What remains uncertain?* |
 | **Review/disposition and notification control** | *What am I going to do, what will I revisit, and when may FinWise contact me again?* |
 
-The wireframe has four selectable synthetic states: A posted, B posted, both posted, and **no new evidence**. It recomputes the same day-level cash model as Module 2, lets the user record a reviewed decision, and previews how channel and materiality preferences affect a hypothetical alert. A click or open by itself does **not** record meaningful engagement.
+The wireframe has five selectable synthetic states: A funds available, B funds available, both available, **A marked paid but funds pending**, and **no new evidence**. It recomputes the same day-level cash model as Module 2, shows the remaining obligation/decision-deadline gate, lets the user record a reviewed decision, and previews how channel and materiality preferences affect a hypothetical alert. A click or open by itself does **not** record meaningful engagement. A pending-funds check can be logged, but **must not be counted as a verified changed-facts review**.
 
 ## 4. Why it can retain, and why it might fail
 
@@ -73,6 +86,8 @@ The behavior is **event-driven or cadence-driven**, not necessarily daily. Many 
 - If low-quality acquisition produces businesses with no relevant cash-management job, retention tactics cannot repair the channel mix.
 
 **A counterintuitive success condition:** We should be pleased when FinWise sends *fewer* alerts while customers report that important changes are never missed. Silence is part of a trustworthy finance experience.
+
+**The business question:** An excellent review is not automatically a recurring-revenue product. A founder may value an occasional cash warning yet decline to pay monthly for it. Test willingness to pay *after* repeat value is demonstrated, and separate a recurring owner-cash-management job from a one-off financing crisis. Compare trial-to-paid and mature paid retention by *verified second review*, source coverage and whether the customer actually encountered a material event; do not infer causation from those cohorts. Watch contribution per paying account after bank-data/connector costs, reconciliation exceptions, support and alert operations. If high-touch verification costs more than the subscription can support, the mechanic may need a different segment, packaging or assisted-service model.
 
 ## 5. What to measure, without rewarding meaningless activity
 
@@ -92,9 +107,9 @@ These weights are a **strategic proposal**, not empirically validated scoring co
 
 **Diagnostic funnel:** `valid changed event → eligible trigger → notification surfaced → evidence inspected → decision disposition recorded → later paid/retained use`. Track no-event accounts separately; they should not be labeled disengaged because no material event occurred. If experimenting, randomize at the business-account level and distinguish intention-to-treat return use from the descriptive triggered subgroup. Module 5 must settle the actual experimental estimand and sample-size feasibility.
 
-**Guardrails:** false-alert rate, missed material events, stale-data decisions, privacy/consent issues, notifications per account, opt-out rate, decision reversal caused by source corrections, support contacts and time-to-reconcile. Check trial-to-paid conversion, the reverse-trial transition and mature paid retention as lagging commercial signals. The case's **2%** conversion and **40%** one-year paid retention are baseline business facts, not evidence that this mechanic works.
+**Guardrails:** false “all clear” rate (a distinct critical metric), missed material events before actionable cutoffs, false warnings, stale/unavailable-funds decisions, missing critical obligations, privacy/consent issues, notifications per account, opt-out rate, decision reversal caused by source corrections, support contacts and time-to-reconcile. Check trial-to-paid conversion, the reverse-trial transition, mature paid retention, willingness to pay after repeat value and contribution per paying account as lagging commercial signals. The case's **2%** conversion and **40%** one-year paid retention are baseline business facts, not evidence that this mechanic works.
 
-**Kill/redirect decision:** Stop increasing prompt exposure if returns rise but reviewed decisions, accuracy or downstream paid retention do not. Investigate whether the problem is poor sources, excessive interruption, an episodic job, acquisition fit or pricing. Instrument before optimizing.
+**Kill/redirect decision:** Stop increasing prompt exposure if returns rise but reviewed decisions, accuracy or downstream paid retention do not. **Immediately pause an affected assurance/alert class** after a consequential false all-clear or systematic reconciliation failure; it is not an A/B-optimization issue. Investigate whether the remaining problem is poor sources, excessive interruption, an episodic job, acquisition fit, economics or pricing. Instrument before optimizing.
 
 ## 6. The cohort lesson
 
