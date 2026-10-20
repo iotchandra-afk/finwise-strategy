@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>FinWise | First trusted decision prototype</title>
+  <style>
+    :root { --ink:#142b39; --navy:#123c4b; --teal:#087b74; --lime:#d8f0cf; --bg:#f5f8f7; --muted:#5c6f75; --line:#dbe5e4; --red:#ad4639; --redbg:#fff0e9; --amber:#9c611e; --cream:#fff8e9; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; line-height:1.5; }
+    button, input, select, textarea { font:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline:3px solid #63b8b0; outline-offset:2px; }
+    .app { display:grid; grid-template-columns:246px minmax(0,1fr); min-height:100vh; }
+    aside { padding:29px 22px; background:#133946; color:#f7fffd; display:flex; flex-direction:column; gap:28px; }
+    .brand { display:flex; align-items:center; gap:9px; font-size:22px; font-weight:800; letter-spacing:-.75px; }
+    .brand-mark { display:grid; place-items:center; background:#c9f2d5; color:#123946; font-size:19px; width:33px; height:33px; border-radius:11px; }
+    .micro { font-size:10px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; }
+    .sidebar-label { color:#a9c6c5; margin:5px 0 13px; }
+    .steps { margin:0; padding:0; list-style:none; display:grid; gap:4px; }
+    .steps li { display:flex; align-items:center; gap:11px; padding:13px 10px; color:#adc5c8; font-size:13px; border-radius:10px; }
+    .steps li.active { color:#faffff; background:#285461; font-weight:750; }
+    .steps li.done { color:#dcfaef; }
+    .steps .n { width:23px; height:23px; border:1px solid #608791; border-radius:50%; display:grid; place-items:center; flex:none; font-size:11px; }
+    .steps li.active .n { background:#c9f2d5; color:#123946; border-color:#c9f2d5; }
+    .steps li.done .n { background:#136b65; border-color:#136b65; color:white; }
+    .aside-note { margin-top:auto; padding:17px; background:#22515e; border:1px solid #396b75; border-radius:13px; }
+    .aside-note p { margin:8px 0 0; font-size:12px; color:#d6e8e9; line-height:1.6; }
+    main { min-width:0; }
+    .top { display:flex; align-items:center; justify-content:space-between; padding:19px clamp(20px,5vw,72px); background:white; border-bottom:1px solid var(--line); gap:12px; }
+    .top .right { display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .badge { padding:6px 11px; background:#e8f5f0; color:#216b61; border-radius:999px; text-transform:uppercase; font-size:10px; font-weight:800; letter-spacing:.6px; white-space:nowrap; }
+    .badge.alert { background:#fff1df; color:#80521f; }
+    .top .caption { color:var(--muted); font-size:12px; }
+    .wrap { max-width:1140px; padding:clamp(28px,5vw,56px) clamp(20px,5vw,72px) 70px; margin:auto; }
+    section.step { display:none; }
+    section.step.active { display:block; animation:appear .22s ease-out; }
+    @keyframes appear { from { opacity:.4; transform:translateY(4px); } to { opacity:1; transform:none; } }
+    h1 { margin:10px 0 13px; font-size:clamp(31px,3.7vw,47px); max-width:830px; line-height:1.12; letter-spacing:-1.8px; }
+    h2 { font-size:21px; letter-spacing:-.6px; margin:0 0 10px; }
+    h3 { font-size:15px; margin:0 0 9px; }
+    p { margin:0 0 14px; }
+    .lede { max-width:760px; color:#52686d; font-size:16px; line-height:1.65; }
+    .kicker { color:#00766e; font-size:11px; letter-spacing:1.5px; font-weight:900; text-transform:uppercase; }
+    .panel { background:white; border:1px solid var(--line); border-radius:18px; padding:25px; box-shadow:0 6px 24px #113d4810; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:29px; }
+    .grid.two-one { grid-template-columns:1.3fr .7fr; }
+    .grid > * { min-width:0; }
+    .choice { border:2px solid #dbe5e4; border-radius:14px; padding:22px; background:#fff; transition:.12s; }
+    .choice.selected { border-color:#087b74; background:#f3fbf7; }
+    .choice .iconbox { width:42px; height:42px; background:#e3f3ee; border-radius:13px; display:grid; place-items:center; font-size:23px; margin-bottom:22px; }
+    .choice h3 { font-size:17px; }
+    .choice p { font-size:13px; color:var(--muted); margin:0; }
+    .hint { background:#edf4f2; padding:18px; border-radius:14px; color:#36525a; font-size:13px; margin-top:25px; }
+    .hint strong { color:#173d43; }
+    .actions { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-top:27px; }
+    .primary, .secondary { border-radius:11px; padding:13px 21px; font-weight:750; font-size:13px; border:1px solid var(--teal); }
+    .primary { background:var(--teal); color:white; box-shadow:0 4px 0 #0c5a54; }
+    .primary:disabled { cursor:not-allowed; opacity:.48; box-shadow:none; }
+    .secondary { color:#12574f; background:white; }
+    .quiet { color:#60777e; font-size:12px; }
+    .big-number { font-size:38px; line-height:1.1; letter-spacing:-1px; font-weight:850; }
+    .data-intro { display:flex; gap:15px; justify-content:space-between; align-items:center; padding-bottom:18px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+    .data-intro p { font-size:13px; color:var(--muted); margin:0; }
+    .data-list { display:grid; gap:1px; background:var(--line); margin:20px 0; border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+    .data-row { display:grid; grid-template-columns:minmax(0,1fr) auto; background:#fff; padding:14px 16px; gap:16px; font-size:13px; align-items:center; }
+    .data-row span { display:block; color:#6b7d82; font-size:11px; margin-top:2px; }
+    .amount { font-size:14px; font-weight:800; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .exception { display:flex; gap:12px; background:var(--cream); border:1px solid #efdbb9; padding:15px; margin-bottom:11px; border-radius:11px; }
+    .exception strong { color:#774519; font-size:13px; }
+    .exception p { font-size:12px; color:#795f3c; margin:4px 0 0; }
+    .checkline { display:flex; gap:12px; align-items:flex-start; font-size:13px; color:#3f5960; margin-top:21px; }
+    .checkline input { accent-color:var(--teal); width:17px; height:17px; flex:none; margin-top:2px; }
+    .metric-band { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:25px 0; }
+    .metric { border:1px solid var(--line); border-radius:14px; background:#fff; padding:18px; }
+    .metric .label { color:#667a81; font-size:11px; font-weight:750; margin-bottom:9px; }
+    .metric strong { display:block; font-size:26px; letter-spacing:-.9px; font-variant-numeric:tabular-nums; line-height:1.15; }
+    .metric small { font-size:11px; color:#657780; }
+    .metric.risk { background:var(--redbg); border-color:#f1c5b8; }
+    .metric.risk strong { color:var(--red); }
+    .controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px 22px; }
+    .controls label { display:inline-flex; align-items:center; gap:7px; font-size:12px; font-weight:700; }
+    .controls input { accent-color:var(--teal); }
+    select { border-radius:9px; padding:8px; border:1px solid #cfddda; background:white; color:var(--ink); }
+    .chartwrap { margin-top:22px; overflow:hidden; }
+    svg { width:100%; height:auto; }
+    .legend { display:flex; gap:22px; color:#526b73; font-size:11px; flex-wrap:wrap; }
+    .line-key { display:inline-block; height:3px; width:24px; vertical-align:middle; margin-right:7px; }
+    .scenario-note { border-left:4px solid var(--teal); background:#edf7f3; padding:16px 20px; border-radius:0 12px 12px 0; margin-top:21px; }
+    .scenario-note.risk { border-color:#b35643; background:#fff1e9; }
+    .scenario-note strong { font-size:15px; }
+    .scenario-note p { margin:5px 0 0; font-size:13px; }
+    details { margin-top:18px; border-top:1px solid var(--line); padding-top:14px; }
+    summary { cursor:pointer; color:var(--teal); font-weight:750; font-size:12px; }
+    .schedule { width:100%; border-collapse:collapse; margin-top:12px; font-size:12px; }
+    .schedule th { text-align:left; color:#6e7c83; font-weight:750; padding:9px 6px; border-bottom:1px solid var(--line); }
+    .schedule td { padding:8px 6px; border-bottom:1px solid #eff3f2; }
+    .schedule .right { text-align:right; font-variant-numeric:tabular-nums; }
+    .callout { background:#153f4b; color:white; padding:24px; border-radius:16px; margin-top:25px; }
+    .callout .kicker { color:#b9e5d5; }
+    .callout h2 { font-size:28px; margin:12px 0; line-height:1.2; }
+    .callout p { color:#c7dadd; font-size:13px; }
+    .field { margin-top:17px; }
+    .field label { display:block; font-size:12px; font-weight:800; margin-bottom:7px; }
+    textarea { width:100%; resize:vertical; min-height:94px; border:1px solid #cbdad8; border-radius:12px; padding:13px; background:#fff; color:var(--ink); }
+    .success { display:none; padding:21px; background:#e6f6ec; border:1px solid #b3dfc3; border-radius:14px; margin-top:16px; }
+    .success.visible { display:block; }
+    .success strong { font-size:17px; }
+    .success p { font-size:13px; color:#416959; margin:8px 0 0; }
+    .foot { margin-top:32px; color:#76898c; font-size:11px; border-top:1px solid var(--line); padding-top:15px; }
+    @media(max-width:900px) { .app { grid-template-columns:1fr; } aside { padding:14px 20px; gap:0; } .steps,.sidebar-label,.aside-note { display:none; } .top { padding:14px 20px; } .wrap { padding:32px 20px 58px; } }
+    @media(max-width:640px) { .grid,.grid.two-one { grid-template-columns:1fr; } .metric-band { grid-template-columns:1fr; } .top .caption { display:none; } .panel { padding:19px; } h1 { letter-spacing:-.8px; } }
+    @media(prefers-reduced-motion:reduce) { section.step.active { animation:none; } }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand"><span class="brand-mark">↗</span>FinWise<span style="font-weight:400;opacity:.55">/</span></div>
+    <div>
+      <div class="micro sidebar-label">Your first useful answer</div>
+      <ol class="steps" aria-label="Onboarding progress">
+        <li class="active" data-step-label="1"><span class="n">1</span> Choose the decision</li>
+        <li data-step-label="2"><span class="n">2</span> Inspect your inputs</li>
+        <li data-step-label="3"><span class="n">3</span> Stress-test cash</li>
+        <li data-step-label="4"><span class="n">4</span> Save your next move</li>
+      </ol>
+    </div>
+    <div class="aside-note">
+      <div class="micro">Why this matters</div>
+      <p>Small-business owners do not buy dashboards. They pay to make decisions with fewer unpleasant surprises.</p>
+    </div>
+  </aside>
+  <main>
+    <div class="top">
+      <div class="caption"><strong>FinWise Lab</strong> / First-value onboarding</div>
+      <div class="right"><span class="badge alert">Fictional data</span><span class="badge">Interactive prototype</span></div>
+    </div>
+    <div class="wrap">
+      <section class="step active" id="step1" aria-labelledby="title1">
+        <div class="kicker">Start with the job, not a feature tour</div>
+        <h1 id="title1">What financial decision can’t wait this week?</h1>
+        <p class="lede">We’ll show you the cash consequence of a specific business risk. You can inspect the assumptions before trusting the answer.</p>
+        <div class="grid">
+          <div class="choice selected" role="group" aria-label="Selected use case">
+            <div class="iconbox" aria-hidden="true">▤</div>
+            <h3>Will I have enough for payroll and bills?</h3>
+            <p>See the impact if customers pay late, before an obligation becomes urgent.</p>
+            <span class="badge" style="display:inline-block;margin-top:20px">Prototype path</span>
+          </div>
+          <div class="choice" style="opacity:.60">
+            <div class="iconbox" aria-hidden="true">▥</div>
+            <h3>Can I afford the next purchase?</h3>
+            <p>Compare an investment against upcoming obligations. Not implemented in this prototype.</p>
+            <span class="badge alert" style="display:inline-block;margin-top:20px">Later hypothesis</span>
+          </div>
+        </div>
+        <div class="hint"><strong>Designed for:</strong> an owner-operator managing variable cash receipts without a full-time finance team. This is a proposed entry segment, not a verified FinWise user profile.</div>
+        <div class="actions"><span class="quiet">No credentials or real banking data needed for this demonstration.</span><button class="primary" type="button" id="next1">Explore the payroll decision →</button></div>
+      </section>
+
+      <section class="step" id="step2" aria-labelledby="title2">
+        <div class="kicker">Evidence before automation</div>
+        <h1 id="title2">Know what the answer is built on.</h1>
+        <p class="lede">An unexplained cash forecast can be worse than no forecast. Before running a scenario, separate known obligations from receivables whose timing is uncertain.</p>
+        <div class="grid two-one">
+          <div class="panel">
+            <div class="data-intro"><div><h2>Illustrative cash picture</h2><p>14-day example for a fictional business, created for this prototype</p></div><span class="badge">Synthetic ledger</span></div>
+            <div class="data-list">
+              <div class="data-row"><div><strong>Opening available cash</strong><span>Day 0 · illustrative bank balance</span></div><div class="amount">$42,500</div></div>
+              <div class="data-row"><div><strong>Confirmed incoming</strong><span>Days 6 and 12 · assumed collectible</span></div><div class="amount">+$18,800</div></div>
+              <div class="data-row"><div><strong>At-risk invoices</strong><span>Two customers · dates unconfirmed</span></div><div class="amount">+$19,500</div></div>
+              <div class="data-row"><div><strong>Scheduled obligations</strong><span>Rent, payroll, supplier, software</span></div><div class="amount">−$45,300</div></div>
+            </div>
+            <div class="micro" style="color:var(--amber);margin-bottom:12px">Two timing exceptions need your judgment</div>
+            <div class="exception"><span aria-hidden="true">⚑</span><div><strong>Customer A · $12,800 expected on day 5</strong><p>A due date is not proof of collection. Treat late payment as a scenario, not a prediction.</p></div></div>
+            <div class="exception"><span aria-hidden="true">⚑</span><div><strong>Customer B · $6,700 expected on day 9</strong><p>There is no confirmation here that funds have cleared.</p></div></div>
+            <label class="checkline"><input type="checkbox" id="ack"><span>I understand that invoice timing is uncertain and that this is a simulated example. In a real product, I would review freshness, reconciliation exceptions, and data permissions before relying on it.</span></label>
+          </div>
+          <div class="panel" style="align-self:start">
+            <h2>A deliberate trade-off</h2>
+            <p style="font-size:13px;color:var(--muted)">The fastest path is not always the best path. We introduce the minimum verification needed to avoid turning an untrusted forecast into a confidently wrong decision.</p>
+            <div class="hint" style="margin-top:14px"><strong>Live-product requirement:</strong> permissioned connection or import, readable freshness timestamp, reconciliation status, explainable assumptions, and a correction path.</div>
+            <p class="quiet" style="margin-top:17px">This prototype has no bank/ledger integration and cannot verify actual balances or receivables.</p>
+          </div>
+        </div>
+        <div class="actions"><button class="secondary" type="button" id="back2">← Back</button><button class="primary" type="button" id="next2" disabled>Model the uncertainty →</button></div>
+      </section>
+
+      <section class="step" id="step3" aria-labelledby="title3">
+        <div class="kicker">The proposed first-value moment</div>
+        <h1 id="title3">If customers pay late, what happens to my cash?</h1>
+        <p class="lede">Change the assumptions. See the lowest projected balance, the day it occurs, and whether it breaks your operating buffer.</p>
+        <div class="panel" style="margin-top:25px">
+          <h2>Your stress test</h2>
+          <div class="controls">
+            <label><input type="checkbox" id="lateA" checked> Customer A ($12,800) is late</label>
+            <label><input type="checkbox" id="lateB" checked> Customer B ($6,700) is late</label>
+            <label for="floor">Cash buffer</label>
+            <select id="floor"><option value="10000">$10,000</option><option value="20000" selected>$20,000</option><option value="30000">$30,000</option></select>
+          </div>
+          <div class="metric-band" aria-live="polite">
+            <div class="metric"><div class="label">Lowest cash, on-time case</div><strong id="baseLow">$29,100</strong><small id="baseDay">Day 11</small></div>
+            <div class="metric risk" id="riskTile"><div class="label">Lowest cash, selected scenario</div><strong id="stressLow">$9,600</strong><small id="stressDay">Day 11</small></div>
+            <div class="metric risk" id="gapTile"><div class="label">Below your buffer</div><strong id="cashGap">$10,400</strong><small id="gapLabel">Potential shortfall</small></div>
+          </div>
+          <div class="chartwrap"><svg id="chart" viewBox="0 0 820 260" role="img" aria-label="14-day on-time and selected-scenario cash balances versus the chosen cash buffer"></svg></div>
+          <div class="legend"><span><span class="line-key" style="background:#207e78"></span>On-time assumption</span><span><span class="line-key" style="background:#d27356"></span>Selected late-payment scenario</span><span><span class="line-key" style="border-top:2px dashed #9babb0;background:transparent"></span>Chosen buffer</span></div>
+          <div class="scenario-note risk" id="scenarioNote" aria-live="polite"><strong id="scenarioHeading">The scenario exposes a gap.</strong><p id="scenarioText"></p></div>
+          <details><summary>Show the day-by-day cash arithmetic and assumptions</summary><div style="overflow-x:auto"><table class="schedule"><thead><tr><th>Day</th><th>Event</th><th class="right">On time</th><th class="right">Scenario</th></tr></thead><tbody id="scheduleRows"></tbody></table></div><p class="quiet" style="margin:12px 0 0">Cash is modeled as daily net end-of-day balances. Intraday liquidity, taxes, financing limits, uncleared checks, and unlisted commitments are outside this illustrative scope.</p></details>
+        </div>
+        <div class="actions"><button class="secondary" type="button" id="back3">← Inspect inputs</button><button class="primary" type="button" id="next3">Turn this into a decision →</button></div>
+      </section>
+
+      <section class="step" id="step4" aria-labelledby="title4">
+        <div class="kicker">Make value actionable</div>
+        <h1 id="title4">A forecast only matters if it changes what you do.</h1>
+        <p class="lede">Capture one decision, its trigger, and the next review. Saving the decision with its assumptions is the proposed activation event for a real FinWise trial.</p>
+        <div class="grid two-one">
+          <div class="panel">
+            <h2>Decision record</h2>
+            <div class="data-row" style="padding:0 0 18px; border-bottom:1px solid var(--line)"><div><strong>Risk being reviewed</strong><span>Customer A and B payment timing, 14-day view</span></div><span class="badge">Customer-controlled</span></div>
+            <div class="field"><label for="actionNote">My next action</label><textarea id="actionNote" maxlength="600"></textarea></div>
+            <div class="field"><label for="reviewWhen">Next review trigger</label><select id="reviewWhen"><option value="When the first payment status changes">When the first payment status changes</option><option value="Before the day-7 payroll run">Before the day-7 payroll run</option><option value="At the next weekly cash review">At the next weekly cash review</option></select></div>
+            <div class="hint"><strong>Scope:</strong> this creates a decision record in this browser session only. No reminder, outreach, bank access, or payment instruction is executed.</div>
+            <div class="actions"><button class="secondary" type="button" id="back4">← Recheck scenario</button><button class="primary" type="button" id="saveDecision">Save decision and assumptions →</button></div>
+            <div class="success" id="success" role="status"><strong>Decision saved in this prototype.</strong><p id="savedSummary"></p></div>
+          </div>
+          <div>
+            <div class="callout"><div class="kicker">What the user gains</div><h2>Not a dashboard. A decision they can defend.</h2><p>Know the amount, the timing, the assumptions that matter, and exactly what would cause the answer to change.</p></div>
+            <div class="panel" style="margin-top:18px"><h3>What would bring them back?</h3><p style="font-size:13px;color:var(--muted)">A changed payment status, a new obligation, or the next real planning review. Useful recurring context, not a generic “come back” notification.</p><button class="secondary" type="button" id="simulateReview" disabled>Simulate Customer A paying on time</button><p class="quiet" style="margin:10px 0 0">Enabled after saving the decision. This changes a scenario assumption, not a real ledger.</p></div>
+          </div>
+        </div>
+        <div class="foot">Educational prototype for the Product School FinWise exercise. Every financial amount is invented. It provides no real financial advice or live integrations. A production implementation must verify permissions, correctness, timeliness, and entitlements.</div>
+      </section>
+    </div>
+  </main>
+</div>
+<script>
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const fmt = n => new Intl.NumberFormat("en-US", {style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
+  let currentStep = 1;
+  let saved = false;
+  const obligations = [
+    {day:3, amount:-7200, label:"Rent"},
+    {day:5, amount:12800, label:"Customer A invoice", key:"A"},
+    {day:6, amount:10500, label:"Other expected receipt"},
+    {day:7, amount:-27800, label:"Payroll"},
+    {day:9, amount:6700, label:"Customer B invoice", key:"B"},
+    {day:11, amount:-8400, label:"Supplier"},
+    {day:12, amount:8300, label:"Other expected receipt"},
+    {day:13, amount:-1900, label:"Software and services"}
+  ];
+  function go(n) {
+    currentStep = n;
+    document.querySelectorAll("section.step").forEach(e=>e.classList.toggle("active", e.id==="step"+n));
+    document.querySelectorAll("[data-step-label]").forEach(e=>{
+      const i = +e.dataset.stepLabel;
+      e.classList.toggle("active",i===n);
+      e.classList.toggle("done",i<n);
+      e.querySelector(".n").textContent=i<n?"✓":i;
+    });
+    if(n===3) renderScenario();
+    if(n===4) prepareDecision();
+    window.scrollTo({top:0,behavior:"instant"});
+  }
+  function project(lateA,lateB) {
+    const daily=[];
+    let bal=42500;
+    for(let day=0;day<=14;day++) {
+      const today=obligations.filter(e=>e.day===day);
+      for(const event of today) {
+        if((event.key==="A"&&lateA)||(event.key==="B"&&lateB)) continue;
+        bal+=event.amount;
+      }
+      daily.push({day,balance:bal,labels:today.map(e=>e.label)});
+    }
+    const low=daily.reduce((a,b)=>b.balance<a.balance?b:a);
+    return {daily,low};
+  }
+  let currentScenario;
+  function renderScenario() {
+    const base=project(false,false);
+    const scenario=project($("lateA").checked,$("lateB").checked);
+    const floor=Number($("floor").value);
+    const gap=Math.max(0,floor-scenario.low.balance);
+    const firstBreach=scenario.daily.find(x=>x.balance<floor);
+    currentScenario={base,scenario,floor,gap,firstBreach,lateA:$("lateA").checked,lateB:$("lateB").checked};
+    $("baseLow").textContent=fmt(base.low.balance);
+    $("baseDay").textContent="Day "+base.low.day;
+    $("stressLow").textContent=fmt(scenario.low.balance);
+    $("stressDay").textContent="Day "+scenario.low.day;
+    $("cashGap").textContent=fmt(gap);
+    $("gapLabel").textContent=gap?"Below the chosen buffer":"No modeled buffer breach";
+    for(const id of ["riskTile","gapTile","scenarioNote"]) $(id).classList.toggle("risk",!!gap);
+    if(gap) {
+      $("scenarioHeading").textContent="Protect the buffer before day "+firstBreach.day+".";
+      $("scenarioText").textContent="Under these assumptions, cash first falls below "+fmt(floor)+" on day "+firstBreach.day+". The deepest shortfall is "+fmt(gap)+" on day "+scenario.low.day+". Confirm receipts or plan an approved buffer before the first breach; the model does not execute any action.";
+    } else {
+      $("scenarioHeading").textContent="No buffer breach in this modeled scenario.";
+      $("scenarioText").textContent="The low point is "+fmt(scenario.low.balance)+" on day "+scenario.low.day+" against a "+fmt(floor)+" buffer. This is not a guarantee: only listed commitments and assumed receipts are included.";
+    }
+    drawChart(base.daily,scenario.daily,floor);
+    $("scheduleRows").innerHTML=scenario.daily.map((v,i)=>{
+      const label=i===0?"Opening balance":(obligations.filter(e=>e.day===i).map(e=>e.label).join(", ")||"No listed event");
+      return "<tr><td>"+i+"</td><td>"+label+"</td><td class='right'>"+fmt(base.daily[i].balance)+"</td><td class='right'>"+fmt(v.balance)+"</td></tr>";
+    }).join("");
+  }
+  function drawChart(base,scenario,floor) {
+    const W=820,H=260,L=65,R=14,T=20,B=39;
+    const values=base.concat(scenario).map(d=>d.balance).concat([floor]);
+    let max=Math.ceil((Math.max(...values)+3000)/10000)*10000;
+    const min=Math.min(0,Math.floor((Math.min(...values)-3000)/10000)*10000);
+    const x=d=>L+d/14*(W-L-R);
+    const y=v=>T+(max-v)/(max-min)*(H-T-B);
+    const path=points=>points.map((p,i)=>(i?"L":"M")+x(p.day).toFixed(1)+","+y(p.balance).toFixed(1)).join(" ");
+    const ticks=[];
+    for(let i=0;i<=4;i++) {
+      const v=min+(max-min)*i/4;
+      ticks.push("<line x1='"+L+"' y1='"+y(v)+"' x2='"+(W-R)+"' y2='"+y(v)+"' stroke='#e0e9e9' stroke-width='1'/><text x='"+(L-10)+"' y='"+(y(v)+4)+"' text-anchor='end' font-size='11' fill='#76888b'>"+(v/1000).toFixed(0)+"k</text>");
+    }
+    const days=[0,3,7,11,14].map(d=>"<text x='"+x(d)+"' y='"+(H-12)+"' text-anchor='middle' font-size='11' fill='#76888b'>Day "+d+"</text>").join("");
+    $("chart").innerHTML=ticks.join("")+days+"<line x1='"+L+"' y1='"+y(floor)+"' x2='"+(W-R)+"' y2='"+y(floor)+"' stroke='#9babb0' stroke-width='1.5' stroke-dasharray='7 5'/>"+"<path d='"+path(base)+"' fill='none' stroke='#207e78' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/>"+"<path d='"+path(scenario)+"' fill='none' stroke='#d27356' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/>"+"<circle cx='"+x(currentScenario.scenario.low.day)+"' cy='"+y(currentScenario.scenario.low.balance)+"' r='6' fill='#d27356' stroke='white' stroke-width='2'/>";
+  }
+  function suggestedAction() {
+    const s=currentScenario;
+    if(!s.gap) return "Confirm the next incoming payments and scheduled obligations. Recheck this scenario when payment timing changes, before the next weekly cash review.";
+    return "Confirm at-risk customer receipts. If the delays persist, arrange an approved "+fmt(s.gap)+" liquidity buffer or adjust commitments before day "+s.firstBreach.day+". Recheck the timing and assumptions with the person responsible for cash.";
+  }
+  function prepareDecision() {
+    if(!saved) $("actionNote").value=suggestedAction();
+  }
+  $("next1").addEventListener("click",()=>go(2));
+  $("back2").addEventListener("click",()=>go(1));
+  $("ack").addEventListener("change",e=>$("next2").disabled=!e.target.checked);
+  $("next2").addEventListener("click",()=>go(3));
+  $("back3").addEventListener("click",()=>go(2));
+  $("next3").addEventListener("click",()=>{saved=false;$("success").classList.remove("visible");$("simulateReview").disabled=true;go(4);});
+  $("back4").addEventListener("click",()=>go(3));
+  ["lateA","lateB","floor"].forEach(id=>$(id).addEventListener("change",renderScenario));
+  $("saveDecision").addEventListener("click",()=>{
+    const note=$("actionNote").value.trim();
+    if(!note){$("actionNote").focus();return;}
+    saved=true;
+    $("savedSummary").textContent="Action: "+note+" Next review: "+$("reviewWhen").value+". Scenario low: "+fmt(currentScenario.scenario.low.balance)+" on day "+currentScenario.scenario.low.day+"; buffer: "+fmt(currentScenario.floor)+". In a live product the record would be linked to the source snapshot and consented account.";
+    $("success").classList.add("visible");
+    $("simulateReview").disabled=false;
+  });
+  $("simulateReview").addEventListener("click",()=>{
+    if(!saved)return;
+    $("lateA").checked=false;
+    go(3);
+    $("scenarioHeading").scrollIntoView({block:"nearest",behavior:"smooth"});
+  });
+  renderScenario();
+</script>
+</body>
+</html>
