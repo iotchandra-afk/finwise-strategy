@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinWise | Decision Delta engagement wireframe</title>
+  <style>
+    :root { --ink:#193644; --muted:#5d727b; --green:#14796f; --green-bg:#eaf7f0; --navy:#143c4b; --line:#d9e5e5; --bg:#f3f7f6; --risk:#a34c38; --risk-bg:#fff1eb; --amber:#93621e; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
+    button, select, textarea { font:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible,select:focus-visible,textarea:focus-visible,input:focus-visible { outline:3px solid #6abfba; outline-offset:2px; }
+    .top { background:var(--navy); color:#e9fffc; border-bottom:4px solid #bae8d2; }
+    .topinner { max-width:1200px; margin:auto; padding:21px 26px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+    .brand { font-size:21px; letter-spacing:-.8px; font-weight:850; }
+    .brand span { display:inline-block; padding:1px 8px; background:#ceefdc; color:#15454b; border-radius:7px; margin-right:7px; }
+    .chip { display:inline-block; font-size:10px; text-transform:uppercase; letter-spacing:1px; font-weight:800; border-radius:999px; padding:6px 11px; background:#e7f4f0; color:#17675d; }
+    .top .chip { background:#2c606b; color:#d6efec; }
+    .shell { max-width:1200px; padding:33px 26px 70px; margin:auto; }
+    .eyebrow { font-size:11px; font-weight:900; text-transform:uppercase; letter-spacing:1.4px; color:#0e766d; }
+    h1 { font-size:clamp(28px,3.6vw,42px); margin:9px 0 9px; letter-spacing:-1.35px; line-height:1.16; }
+    h2 { font-size:18px; margin:0 0 9px; letter-spacing:-.5px; }
+    h3 { font-size:14px; margin:0 0 6px; }
+    p { margin:0 0 12px; }
+    .lede { color:var(--muted); max-width:850px; font-size:14px; }
+    .grid { display:grid; grid-template-columns:1.55fr 1fr; gap:18px; margin-top:24px; }
+    .panel { background:#fff; border:1px solid var(--line); border-radius:15px; padding:23px; box-shadow:0 7px 24px #143c4b0d; min-width:0; }
+    .stack { display:grid; gap:18px; align-content:start; }
+    .separator { height:1px; background:var(--line); margin:19px 0; }
+    .event { border-radius:13px; padding:17px 19px; background:#eaf7f0; border:1px solid #b7e2cb; display:flex; align-items:flex-start; gap:12px; }
+    .event.warning { background:var(--risk-bg); border-color:#edcfc4; }
+    .event.none { background:#eef3f3; border-color:#d0dcdd; }
+    .event .symbol { display:grid; place-items:center; flex:none; width:31px; height:31px; border-radius:50%; background:#d0efe0; color:#0f6b5b; font-weight:900; }
+    .event.warning .symbol { background:#f5d9cd; color:#a34c38; }
+    .event.none .symbol { background:#dce6e8; color:#516a70; }
+    .event p { font-size:12px; color:#47646c; margin:5px 0 0; }
+    .selectors { display:flex; gap:8px; flex-wrap:wrap; margin-top:16px; }
+    .select-event { background:white; border:1px solid #c7d9d8; color:#41636b; border-radius:9px; font-size:12px; padding:10px 13px; font-weight:700; }
+    .select-event.active { border-color:#167970; background:#eaf8f1; color:#0e6a62; box-shadow:inset 0 0 0 1px #167970; }
+    .metric-row { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:11px; margin:20px 0 9px; }
+    .metric { border:1px solid var(--line); border-radius:13px; padding:15px; }
+    .metric .caption { font-size:11px; color:#657f84; line-height:1.4; }
+    .metric strong { display:block; font-size:25px; letter-spacing:-.8px; margin:8px 0 1px; font-variant-numeric:tabular-nums; }
+    .metric strong.green { color:#157969; }
+    .metric strong.red { color:var(--risk); }
+    .metric small { color:#6d7f86; font-size:11px; }
+    .compare { display:grid; grid-template-columns:1fr 35px 1fr; align-items:center; gap:8px; padding:17px; border:1px solid var(--line); border-radius:12px; }
+    .compare .tag { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:#7c8a8f; font-weight:850; }
+    .compare strong { display:block; font-size:20px; font-variant-numeric:tabular-nums; margin:5px 0; }
+    .compare .middle { text-align:center; font-size:23px; color:#6ca49c; }
+    .compare p { font-size:11px; color:#73858b; margin:0; }
+    .diagram { margin-top:16px; }
+    .diagram svg { width:100%; height:auto; }
+    .legend { display:flex; gap:15px; flex-wrap:wrap; margin-top:1px; font-size:11px; color:#71838a; }
+    .key { width:22px; height:3px; display:inline-block; margin-right:5px; vertical-align:middle; }
+    details { border-top:1px solid var(--line); padding-top:12px; margin-top:15px; }
+    summary { font-size:12px; color:#11746a; font-weight:800; cursor:pointer; }
+    table { width:100%; border-collapse:collapse; margin-top:12px; font-size:12px; }
+    th,td { padding:8px 5px; border-bottom:1px solid #eaf0ef; text-align:left; }
+    th { color:#758489; font-weight:800; }
+    td.right,th.right { text-align:right; font-variant-numeric:tabular-nums; }
+    .list { margin:12px 0 0; padding-left:18px; font-size:12px; color:#4b6870; }
+    .list li { margin:6px 0; }
+    .callout { border-left:4px solid #209080; padding:13px 16px; background:#eff8f5; border-radius:0 10px 10px 0; margin-top:18px; font-size:13px; }
+    .callout.risk { border-left-color:#ba6b53; background:#fff5ef; }
+    .label { display:block; font-size:12px; font-weight:800; margin:15px 0 7px; }
+    textarea { width:100%; border:1px solid #cfdcdb; border-radius:10px; padding:11px; min-height:81px; resize:vertical; color:var(--ink); }
+    select { padding:9px 10px; border-radius:9px; border:1px solid #cfdcdb; width:100%; background:white; color:var(--ink); }
+    .checkline { display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#4a6870; margin-top:15px; }
+    .checkline input { accent-color:#0e786e; margin-top:3px; flex:none; }
+    .btn { border-radius:10px; padding:11px 15px; font-size:12px; font-weight:800; border:1px solid #117b70; }
+    .primary { background:#117b70; color:#fff; width:100%; margin-top:15px; }
+    .primary:disabled { opacity:.45; cursor:not-allowed; }
+    .secondary { background:white; color:#117b70; }
+    .feedback { display:none; padding:15px; border-radius:10px; background:#e5f6e8; margin-top:12px; font-size:12px; color:#235b43; }
+    .feedback.visible { display:block; }
+    .notice { font-size:12px; color:#647e85; background:#f1f5f5; padding:12px 14px; border-radius:9px; }
+    .note { color:#73878b; font-size:11px; margin-top:25px; padding-top:18px; border-top:1px solid var(--line); }
+    @media(max-width:870px) { .grid { grid-template-columns:1fr; } }
+    @media(max-width:590px) { .shell { padding:26px 15px; } .topinner { padding:14px 15px; } .panel { padding:17px; } .metric-row { grid-template-columns:1fr; } .compare { grid-template-columns:1fr 20px 1fr; padding:12px; } }
+  </style>
+</head>
+<body>
+  <header class="top"><div class="topinner"><div class="brand"><span>↗</span> FinWise / Decision Watch</div><span class="chip">Module 3 · interactive wireframe · fictional data</span></div></header>
+  <main class="shell">
+    <div class="eyebrow">One saved decision. New evidence. Less work to reconsider.</div>
+    <h1>What changed since your cash decision?</h1>
+    <p class="lede">You previously modeled both customers paying late. A new receipt can change the answer. Compare the original with a revised scenario before deciding whether your cash-buffer plan still makes sense.</p>
+    <div class="grid">
+      <div class="stack">
+        <section class="panel" aria-labelledby="changeTitle">
+          <h2 id="changeTitle">1. A material change to a saved plan</h2>
+          <div id="eventBanner" class="event" role="status"><span class="symbol" id="eventSymbol">✓</span><div><strong id="eventTitle">Customer A's payment is now marked posted</strong><p id="eventDescription">The $12,800 receipt changes the saved scenario. No new decision has been made for you.</p></div></div>
+          <div class="notice" style="margin-top:10px"><strong>Evidence status:</strong> <span id="sourceDetail">Synthetic ledger · simulated posted receipt on day 5 · no actual source integration.</span></div>
+          <div class="selectors" aria-label="Simulated changed facts">
+            <button class="select-event active" data-scenario="a" type="button">A receipt posted</button>
+            <button class="select-event" data-scenario="b" type="button">B receipt posted</button>
+            <button class="select-event" data-scenario="both" type="button">Both posted</button>
+            <button class="select-event" data-scenario="none" type="button">No new evidence</button>
+          </div>
+          <div class="metric-row" aria-live="polite">
+            <div class="metric"><div class="caption">Previous lowest cash</div><strong>$9,600</strong><small>Day 11 · both receipts late</small></div>
+            <div class="metric"><div class="caption">Revised lowest cash</div><strong id="revisedLow" class="green">$22,400</strong><small id="revisedDay">Day 11</small></div>
+            <div class="metric"><div class="caption">Change in lowest cash</div><strong id="cashImprovement" class="green">+$12,800</strong><small>Model sensitivity, not realized profit</small></div>
+          </div>
+          <div class="compare"><div><div class="tag">Prior buffer status</div><strong style="color:#b25c47">$10,400 gap</strong><p>Below $20,000 floor</p></div><div class="middle">→</div><div><div class="tag">Current modeled status</div><strong id="newHeadroom" style="color:#0f756d">$2,400 headroom</strong><p id="riskTiming">No modeled breach</p></div></div>
+          <div class="diagram"><svg id="cashChart" viewBox="0 0 690 225" role="img" aria-label="Previous and revised 14-day cash balances compared with the owner's chosen operating floor"></svg></div>
+          <div class="legend"><span><i class="key" style="background:#bb6b55"></i>Saved scenario</span><span><i class="key" style="background:#168a7b"></i>Revised scenario</span><span><i class="key" style="border-top:2px dashed #a3b2b8"></i>$20,000 floor</span></div>
+          <div class="callout" id="interpretation" aria-live="polite"><strong id="interpretTitle">Risk reduced, not eliminated.</strong><div id="interpretBody">The posted receipt changes the model. Other obligations and unverified payments still matter.</div></div>
+          <details><summary>Audit the dates and daily balances</summary><div style="overflow-x:auto"><table><thead><tr><th>Day</th><th>Cash event</th><th class="right">Saved</th><th class="right">Revised</th></tr></thead><tbody id="cashRows"></tbody></table></div></details>
+        </section>
+        <section class="panel">
+          <h2>2. Proof before prompting</h2>
+          <p style="font-size:13px;color:var(--muted)">The production trigger would require a reconciled source event, a fresh snapshot, an affected saved decision, and a material change. A speculative invoice due date is not a confirmed deposit.</p>
+          <ul class="list"><li>Decision still belongs to the same authorized business account.</li><li>Only a new trusted source version can generate a changed-facts alert.</li><li>Missing data, stale balances, or unresolved critical exceptions block the confident cash label.</li><li>No alert is created if nothing material changed, even if the user has not logged in.</li></ul>
+          <p class="notice" style="margin-top:18px"><strong>Privacy-safe notification preview:</strong> <span id="notificationPreview">“Your saved cash plan changed. Review it privately in FinWise.”</span> No customer name, payroll amount, or account balance appears in a push/email subject.</p>
+        </section>
+      </div>
+      <div class="stack">
+        <section class="panel">
+          <div class="eyebrow">Action → learning</div>
+          <h2>3. Review and own the next decision</h2>
+          <p style="font-size:13px;color:var(--muted)">A return visit does not become meaningful merely because the alert was opened. The owner must inspect the evidence and acknowledge or revise the decision.</p>
+          <label class="label" for="decisionChoice">Decision disposition</label>
+          <select id="decisionChoice"><option value="Reassess buffer with updated assumptions">Reassess buffer with updated assumptions</option><option value="Keep previous buffer plan until receipts clear">Keep previous buffer plan until receipts clear</option><option value="Escalate the cash risk for human review">Escalate cash risk for human review</option><option value="Record no action needed at this time">Record no action needed at this time</option></select>
+          <label class="label" for="decisionNote">My reason or next check</label>
+          <textarea id="decisionNote" maxlength="400" placeholder="Example: Confirm the second invoice and payroll taxes before releasing the proposed buffer."></textarea>
+          <label class="checkline"><input id="reviewAck" type="checkbox"><span>I compared the old and new assumptions, and understand the data in this wireframe is synthetic.</span></label>
+          <button id="saveReview" type="button" class="btn primary" disabled>Record meaningful review</button>
+          <div id="reviewSaved" class="feedback" role="status"></div>
+        </section>
+        <section class="panel">
+          <div class="eyebrow">Customer control</div>
+          <h2>4. What is worth another interruption?</h2>
+          <p style="font-size:13px;color:var(--muted)">Choose how future *material, verified* changes should appear. Nothing is sent from this prototype.</p>
+          <label class="label" for="delivery">Notification preference</label>
+          <select id="delivery"><option value="In-app only">In-app only</option><option value="Email after explicit opt-in">Email after explicit opt-in</option><option value="Off">Off</option></select>
+          <label class="label" for="materiality">Minimum modeled balance change for a non-threshold alert</label>
+          <select id="materiality"><option value="1000">$1,000</option><option value="5000">$5,000</option><option value="10000">$10,000</option></select>
+          <p style="font-size:11px;color:#74858b;margin-top:12px">Crossing the user-defined cash floor still counts as material. These thresholds are hypothetical; a real product would test calibration and notification burden.</p>
+          <div class="separator"></div>
+          <button id="savePreference" type="button" class="btn secondary">Apply preference in this session</button>
+          <div id="preferenceSaved" class="feedback" role="status"></div>
+        </section>
+      </div>
+    </div>
+    <p class="note">Educational Product School prototype. All account data, events, and payment confirmations are invented. No live banking integration, financial recommendations, outreach, account persistence, or automated payment actions. This illustrates the proposed return mechanism, not measured behavior or an implemented FinWise feature.</p>
+  </main>
+  <script>
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const fmt = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+    const events=[
+      {day:3,cash:-7200,label:'Rent'},
+      {day:5,cash:12800,label:'Customer A receipt',key:'A'},
+      {day:6,cash:10500,label:'Other expected receipt'},
+      {day:7,cash:-27800,label:'Payroll'},
+      {day:9,cash:6700,label:'Customer B receipt',key:'B'},
+      {day:11,cash:-8400,label:'Supplier'},
+      {day:12,cash:8300,label:'Other expected receipt'},
+      {day:13,cash:-1900,label:'Software and services'}
+    ];
+    const floor=20000;
+    function project(receivedA,receivedB) {
+      let balance=42500; const daily=[];
+      for(let day=0;day<=14;day++) {
+        for(const e of events.filter(v=>v.day===day)) {
+          if(e.key==='A'&&!receivedA) continue;
+          if(e.key==='B'&&!receivedB) continue;
+          balance+=e.cash;
+        }
+        daily.push({day,balance});
+      }
+      return {daily,lowest:daily.reduce((a,b)=>b.balance<a.balance?b:a),breach:daily.find(d=>d.balance<floor)};
+    }
+    const old=project(false,false);
+    let selected='a';
+    let changedModel;
+    let notificationPreference={delivery:'In-app only',threshold:1000};
+    const variants={
+      a:{a:true,b:false,title:"Customer A's payment is now marked posted",detail:'A $12,800 receipt is now modeled as cleared. Customer B remains uncertain.',evidence:'Synthetic ledger · simulated posted receipt on day 5 · no actual source integration.',summary:'Customer A payment confirmed'},
+      b:{a:false,b:true,title:"Customer B's payment is now marked posted",detail:'A $6,700 receipt is now modeled as cleared. Customer A remains uncertain.',evidence:'Synthetic ledger · simulated posted receipt on day 9 · no actual source integration.',summary:'Customer B payment confirmed'},
+      both:{a:true,b:true,title:'Both customer payments are now marked posted',detail:'Receipts totaling $19,500 are modeled as cleared. Other obligations remain assumed.',evidence:'Synthetic ledger · simulated receipts posted on days 5 and 9 · no actual source integration.',summary:'Both customer payments confirmed'},
+      none:{a:false,b:false,title:'No material source event has arrived',detail:'The cash outlook has not changed. The correct mechanic is silence, not a return-visit prompt.',evidence:'Saved synthetic snapshot unchanged · no new event or source version.',summary:'No new verified event'}
+    };
+    function chart(before,after) {
+      const W=690,H=225,L=57,R=16,T=16,B=32;
+      const lo=0,hi=50000;
+      const x=d=>L+d/14*(W-L-R), y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
+      const path=arr=>arr.map((p,i)=>(i?'L':'M')+x(p.day).toFixed(1)+','+y(p.balance).toFixed(1)).join(' ');
+      const grid=[0,10000,20000,30000,40000,50000].map(v=>`<line x1='${L}' x2='${W-R}' y1='${y(v)}' y2='${y(v)}' stroke='#e0e9e7'/><text x='${L-9}' y='${y(v)+4}' text-anchor='end' font-size='10' fill='#809399'>${v/1000}k</text>`).join('');
+      const days=[0,3,7,11,14].map(v=>`<text x='${x(v)}' y='${H-9}' font-size='10' fill='#809399' text-anchor='middle'>D${v}</text>`).join('');
+      $('cashChart').innerHTML=grid+days+`<line x1='${L}' x2='${W-R}' y1='${y(floor)}' y2='${y(floor)}' stroke='#9aadb3' stroke-width='1.8' stroke-dasharray='5 4'/>`+`<path d='${path(before)}' stroke='#bb6b55' stroke-width='3.2' fill='none' stroke-linejoin='round'/>`+`<path d='${path(after)}' stroke='#168a7b' stroke-width='3.2' fill='none' stroke-linejoin='round'/>`;
+    }
+    function render() {
+      const v=variants[selected];
+      const next=project(v.a,v.b);
+      changedModel=next;
+      const d=next.lowest.balance-old.lowest.balance;
+      const head=next.lowest.balance-floor;
+      const breach=next.breach;
+      const materiallyChanged=(d!==0);
+      $('eventBanner').className='event'+(selected==='none'?' none':head<0?' warning':'');
+      $('eventSymbol').textContent=selected==='none'?'–':head<0?'!':'✓';
+      $('eventTitle').textContent=v.title;
+      $('eventDescription').textContent=v.detail;
+      $('sourceDetail').textContent=v.evidence;
+      $('revisedLow').textContent=fmt(next.lowest.balance);
+      $('revisedLow').className=head<0?'red':'green';
+      $('revisedDay').textContent='Day '+next.lowest.day;
+      $('cashImprovement').textContent=(d>=0?'+':'')+fmt(d);
+      $('cashImprovement').className=d<0?'red':'green';
+      $('newHeadroom').textContent=head>=0?fmt(head)+' headroom':fmt(-head)+' gap';
+      $('newHeadroom').style.color=head>=0?'#0f756d':'#ae563d';
+      $('riskTiming').textContent=breach?'First breach on day '+breach.day:'No modeled floor breach';
+      $('interpretation').className='callout'+(head<0?' risk':'');
+      if(!materiallyChanged) {
+        $('interpretTitle').textContent='No new evidence, no engagement prompt.';
+        $('interpretBody').textContent='The saved decision remains unchanged. An actual product would suppress this notification and await a meaningful event or chosen review date.';
+      } else if(head>=0) {
+        $('interpretTitle').textContent='The modeled buffer is restored, with limits.';
+        $('interpretBody').textContent='Revisit the old liquidity plan. The improvement is conditional on the changed receipt and the listed obligations. Confirm other payments, taxes and unmodeled commitments before changing a real plan.';
+      } else {
+        $('interpretTitle').textContent='Some uncertainty resolved, but a cash gap remains.';
+        $('interpretBody').textContent='This update improves the projection, yet the '+fmt(-head)+' gap against the '+fmt(floor)+' floor remains. Examine the first breach and decide whether the earlier mitigation is still sufficient.';
+      }
+      renderNotification();
+      document.querySelectorAll('[data-scenario]').forEach(b=>b.classList.toggle('active',b.dataset.scenario===selected));
+      chart(old.daily,next.daily);
+      $('cashRows').innerHTML=next.daily.map((v,i)=>{
+        const label=i===0?'Opening':events.filter(e=>e.day===i).map(e=>e.label).join(', ')||'No listed event';
+        return `<tr><td>${i}</td><td>${label}</td><td class='right'>${fmt(old.daily[i].balance)}</td><td class='right'>${fmt(v.balance)}</td></tr>`;
+      }).join('');
+      $('reviewSaved').classList.remove('visible');
+      $('reviewAck').checked=false;
+      $('saveReview').disabled=true;
+    }
+    function renderNotification() {
+      const delta=Math.abs(changedModel.lowest.balance-old.lowest.balance);
+      const floorCrossed=(old.lowest.balance<floor)!==(changedModel.lowest.balance<floor);
+      const material=delta>0&&(delta>=notificationPreference.threshold||floorCrossed);
+      if(!material) $('notificationPreview').textContent='“No alert: no qualifying material change.”';
+      else if(notificationPreference.delivery==='Off') $('notificationPreview').textContent='“Alerts off: the update remains available on the next visit.”';
+      else if(notificationPreference.delivery==='In-app only') $('notificationPreview').textContent='In-app only: “Your saved cash plan changed. Review it privately in FinWise.”';
+      else $('notificationPreview').textContent='Consent required before email: “Your saved cash plan changed. Review it privately in FinWise.”';
+    }
+    document.querySelectorAll('[data-scenario]').forEach(b=>b.addEventListener('click',()=>{selected=b.dataset.scenario;render();}));
+    function canSave(){return $('decisionNote').value.trim().length>0 && $('reviewAck').checked;}
+    ['decisionNote','reviewAck'].forEach(id=>$(id).addEventListener(id==='reviewAck'?'change':'input',()=>{$('saveReview').disabled=!canSave();}));
+    $('saveReview').addEventListener('click',()=>{
+      if(!canSave()) return;
+      $('reviewSaved').textContent='Saved in this browser session: '+$('decisionChoice').value+'. Reason: '+$('decisionNote').value.trim()+'. Source event: '+variants[selected].summary+'. Updated lowest cash: '+fmt(changedModel.lowest.balance)+'. No external action taken.';
+      $('reviewSaved').classList.add('visible');
+    });
+    $('savePreference').addEventListener('click',()=>{
+      notificationPreference={delivery:$('delivery').value,threshold:Number($('materiality').value)};
+      renderNotification();
+      $('preferenceSaved').textContent='Simulation only: '+notificationPreference.delivery+'; minimum non-threshold change '+fmt(notificationPreference.threshold)+'. No message sent or setting retained.';
+      $('preferenceSaved').classList.add('visible');
+    });
+    render();
+  </script>
+</body>
+</html>
