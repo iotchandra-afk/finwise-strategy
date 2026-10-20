@@ -86,17 +86,18 @@
   <main class="shell">
     <div class="eyebrow">One saved decision. New evidence. Less work to reconsider.</div>
     <h1>What changed since your cash decision?</h1>
-    <p class="lede">You previously modeled both customers paying late. A new receipt can change the answer. Compare the original with a revised scenario before deciding whether your cash-buffer plan still makes sense.</p>
+    <p class="lede">You previously modeled both customers paying late. A newly <strong>available</strong> receipt can change the answer; a bookkeeping “paid” flag cannot. Compare source status, deadlines and obligations before revisiting the cash-buffer plan.</p>
     <div class="grid">
       <div class="stack">
         <section class="panel" aria-labelledby="changeTitle">
           <h2 id="changeTitle">1. A material change to a saved plan</h2>
-          <div id="eventBanner" class="event" role="status"><span class="symbol" id="eventSymbol">✓</span><div><strong id="eventTitle">Customer A's payment is now marked posted</strong><p id="eventDescription">The $12,800 receipt changes the saved scenario. No new decision has been made for you.</p></div></div>
-          <div class="notice" style="margin-top:10px"><strong>Evidence status:</strong> <span id="sourceDetail">Synthetic ledger · simulated posted receipt on day 5 · no actual source integration.</span></div>
+          <div id="eventBanner" class="event" role="status"><span class="symbol" id="eventSymbol">✓</span><div><strong id="eventTitle">Customer A's funds are modeled as available</strong><p id="eventDescription">The $12,800 receipt changes the saved scenario only when spendable. No financial decision has been made for you.</p></div></div>
+          <div class="notice" style="margin-top:10px"><strong>Evidence status:</strong> <span id="sourceDetail">Synthetic bank reconciliation · modeled available on day 5 · no actual source integration.</span></div>
           <div class="selectors" aria-label="Simulated changed facts">
-            <button class="select-event active" data-scenario="a" type="button">A receipt posted</button>
-            <button class="select-event" data-scenario="b" type="button">B receipt posted</button>
-            <button class="select-event" data-scenario="both" type="button">Both posted</button>
+            <button class="select-event active" data-scenario="a" type="button">A funds available</button>
+            <button class="select-event" data-scenario="pending" type="button">A marked paid · pending</button>
+            <button class="select-event" data-scenario="b" type="button">B funds available</button>
+            <button class="select-event" data-scenario="both" type="button">Both available</button>
             <button class="select-event" data-scenario="none" type="button">No new evidence</button>
           </div>
           <div class="metric-row" aria-live="polite">
@@ -108,12 +109,13 @@
           <div class="diagram"><svg id="cashChart" viewBox="0 0 690 225" role="img" aria-label="Previous and revised 14-day cash balances compared with the owner's chosen operating floor"></svg></div>
           <div class="legend"><span><i class="key" style="background:#bb6b55"></i>Saved scenario</span><span><i class="key" style="background:#168a7b"></i>Revised scenario</span><span><i class="key" style="border-top:2px dashed #a3b2b8"></i>$20,000 floor</span></div>
           <div class="callout" id="interpretation" aria-live="polite"><strong id="interpretTitle">Risk reduced, not eliminated.</strong><div id="interpretBody">The posted receipt changes the model. Other obligations and unverified payments still matter.</div></div>
+          <p class="notice" id="actionGate" style="margin-top:12px" aria-live="polite"><strong>Decision gate:</strong> Model improved; payroll processing cutoff, payroll taxes and other commitments remain unverified. No all-clear or autonomous buffer cancellation.</p>
           <details><summary>Audit the dates and daily balances</summary><div style="overflow-x:auto"><table><thead><tr><th>Day</th><th>Cash event</th><th class="right">Saved</th><th class="right">Revised</th></tr></thead><tbody id="cashRows"></tbody></table></div></details>
         </section>
         <section class="panel">
           <h2>2. Proof before prompting</h2>
-          <p style="font-size:13px;color:var(--muted)">The production trigger would require a reconciled source event, a fresh snapshot, an affected saved decision, and a material change. A speculative invoice due date is not a confirmed deposit.</p>
-          <ul class="list"><li>Decision still belongs to the same authorized business account.</li><li>Only a new trusted source version can generate a changed-facts alert.</li><li>Missing data, stale balances, or unresolved critical exceptions block the confident cash label.</li><li>No alert is created if nothing material changed, even if the user has not logged in.</li></ul>
+          <p style="font-size:13px;color:var(--muted)">A production cash improvement requires a bank-reconciled amount available before the actual obligation cutoff. Invoice status, settlement, posting and spendable availability are different states.</p>
+          <ul class="list"><li>Decision still belongs to the same authorized business account.</li><li>A source version must prove usable funds; “marked paid” alone leaves the earlier risk in place.</li><li>Bank holds, a missing payroll-tax amount, an unknown ACH cutoff or stale balances block an “all clear.”</li><li>A projected floor breach near a confirmed cutoff is higher urgency than a cosmetic forecast change; only the authorized owner acts.</li><li>No routine changed-facts alert is sent if cash did not change, even if the user has not logged in.</li></ul>
           <p class="notice" style="margin-top:18px"><strong>Privacy-safe notification preview:</strong> <span id="notificationPreview">“Your saved cash plan changed. Review it privately in FinWise.”</span> No customer name, payroll amount, or account balance appears in a push/email subject.</p>
         </section>
       </div>
@@ -121,13 +123,13 @@
         <section class="panel">
           <div class="eyebrow">Action → learning</div>
           <h2>3. Review and own the next decision</h2>
-          <p style="font-size:13px;color:var(--muted)">A return visit does not become meaningful merely because the alert was opened. The owner must inspect the evidence and acknowledge or revise the decision.</p>
+          <p style="font-size:13px;color:var(--muted)">A return visit does not become meaningful merely because an alert was opened. A status-check note is useful, but only a decision reviewed against verified changed facts qualifies for the engagement metric.</p>
           <label class="label" for="decisionChoice">Decision disposition</label>
           <select id="decisionChoice"><option value="Reassess buffer with updated assumptions">Reassess buffer with updated assumptions</option><option value="Keep previous buffer plan until receipts clear">Keep previous buffer plan until receipts clear</option><option value="Escalate the cash risk for human review">Escalate cash risk for human review</option><option value="Record no action needed at this time">Record no action needed at this time</option></select>
           <label class="label" for="decisionNote">My reason or next check</label>
           <textarea id="decisionNote" maxlength="400" placeholder="Example: Confirm the second invoice and payroll taxes before releasing the proposed buffer."></textarea>
           <label class="checkline"><input id="reviewAck" type="checkbox"><span>I compared the old and new assumptions, and understand the data in this wireframe is synthetic.</span></label>
-          <button id="saveReview" type="button" class="btn primary" disabled>Record meaningful review</button>
+          <button id="saveReview" type="button" class="btn primary" disabled>Record decision review</button>
           <div id="reviewSaved" class="feedback" role="status"></div>
         </section>
         <section class="panel">
@@ -179,9 +181,10 @@
     let changedModel;
     let notificationPreference={delivery:'In-app only',threshold:1000};
     const variants={
-      a:{a:true,b:false,title:"Customer A's payment is now marked posted",detail:'A $12,800 receipt is now modeled as cleared. Customer B remains uncertain.',evidence:'Synthetic ledger · simulated posted receipt on day 5 · no actual source integration.',summary:'Customer A payment confirmed'},
-      b:{a:false,b:true,title:"Customer B's payment is now marked posted",detail:'A $6,700 receipt is now modeled as cleared. Customer A remains uncertain.',evidence:'Synthetic ledger · simulated posted receipt on day 9 · no actual source integration.',summary:'Customer B payment confirmed'},
-      both:{a:true,b:true,title:'Both customer payments are now marked posted',detail:'Receipts totaling $19,500 are modeled as cleared. Other obligations remain assumed.',evidence:'Synthetic ledger · simulated receipts posted on days 5 and 9 · no actual source integration.',summary:'Both customer payments confirmed'},
+      a:{a:true,b:false,title:"Customer A's funds are modeled as available",detail:'A $12,800 bank-reconciled, spendable receipt is modeled on day 5. Customer B remains uncertain.',evidence:'Fictional bank reconciliation · available day 5, before modeled day 7 payroll · no actual source integration.',summary:'Customer A funds modeled available'},
+      pending:{a:false,b:false,pending:true,title:'Customer A marked paid, but funds are not available',detail:'Bookkeeping status changed; no verified spendable funds by the payroll deadline. The $12,800 cannot improve this cash plan.',evidence:'Fictional accounting status only · settlement/hold and bank availability unverified · no cash credited.',summary:'Customer A marked paid, availability unverified'},
+      b:{a:false,b:true,title:"Customer B's funds are modeled as available",detail:'A $6,700 bank-reconciled, spendable receipt is modeled on day 9. Customer A remains uncertain.',evidence:'Fictional bank reconciliation · available day 9 · no actual source integration.',summary:'Customer B funds modeled available'},
+      both:{a:true,b:true,title:'Both customer receipts are modeled as available',detail:'Bank-available receipts totaling $19,500 are included on days 5 and 9. Other obligations remain assumptions.',evidence:'Fictional bank reconciliations · modeled available on days 5 and 9 · no actual source integration.',summary:'Both customer receipts modeled available'},
       none:{a:false,b:false,title:'No material source event has arrived',detail:'The cash outlook has not changed. The correct mechanic is silence, not a return-visit prompt.',evidence:'Saved synthetic snapshot unchanged · no new event or source version.',summary:'No new verified event'}
     };
     function chart(before,after) {
@@ -201,8 +204,8 @@
       const head=next.lowest.balance-floor;
       const breach=next.breach;
       const materiallyChanged=(d!==0);
-      $('eventBanner').className='event'+(selected==='none'?' none':head<0?' warning':'');
-      $('eventSymbol').textContent=selected==='none'?'–':head<0?'!':'✓';
+      $('eventBanner').className='event'+(selected==='none'?' none':v.pending||head<0?' warning':'');
+      $('eventSymbol').textContent=selected==='none'?'–':v.pending||head<0?'!':'✓';
       $('eventTitle').textContent=v.title;
       $('eventDescription').textContent=v.detail;
       $('sourceDetail').textContent=v.evidence;
@@ -215,15 +218,25 @@
       $('newHeadroom').style.color=head>=0?'#0f756d':'#ae563d';
       $('riskTiming').textContent=breach?'First breach on day '+breach.day:'No modeled floor breach';
       $('interpretation').className='callout'+(head<0?' risk':'');
-      if(!materiallyChanged) {
+      if(v.pending) {
+        $('interpretTitle').textContent='“Paid” is not spendable cash.';
+        $('interpretBody').textContent='The original '+fmt(10400)+' modeled floor gap remains. Keep the buffer plan in place until settlement, availability before the payroll cutoff and critical obligations are verified. No cash-improvement notification is justified.';
+      } else if(!materiallyChanged) {
         $('interpretTitle').textContent='No new evidence, no engagement prompt.';
         $('interpretBody').textContent='The saved decision remains unchanged. An actual product would suppress this notification and await a meaningful event or chosen review date.';
       } else if(head>=0) {
-        $('interpretTitle').textContent='The modeled buffer is restored, with limits.';
-        $('interpretBody').textContent='Revisit the old liquidity plan. The improvement is conditional on the changed receipt and the listed obligations. Confirm other payments, taxes and unmodeled commitments before changing a real plan.';
+        $('interpretTitle').textContent='The modeled floor is restored, not yet an all-clear.';
+        $('interpretBody').textContent='Revisit the old liquidity plan. The scenario assumes receipts are available when modeled. Confirm payroll cutoff, taxes, holds and missing commitments before canceling any mitigation.';
       } else {
         $('interpretTitle').textContent='Some uncertainty resolved, but a cash gap remains.';
         $('interpretBody').textContent='This update improves the projection, yet the '+fmt(-head)+' gap against the '+fmt(floor)+' floor remains. Examine the first breach and decide whether the earlier mitigation is still sufficient.';
+      }
+      if(v.pending) {
+        $('actionGate').textContent='HIGH RISK · The saved plan still breaches the '+fmt(floor)+' floor on day '+breach.day+'. Accounting status is not bank availability. Verify usable cash and the actual payroll ACH cutoff with an authorized human before any plan change.';
+      } else if(breach) {
+        $('actionGate').textContent='HIGH RISK · First modeled floor breach is day '+breach.day+'. Identify the actual payroll processing cutoff and available funds; only the owner can change payment or financing plans.';
+      } else {
+        $('actionGate').textContent='CONDITIONAL MODEL · No modeled floor breach, but bank holds, payroll cutoff/taxes and unlisted obligations are not verified. This is not a payroll all-clear.';
       }
       renderNotification();
       document.querySelectorAll('[data-scenario]').forEach(b=>b.classList.toggle('active',b.dataset.scenario===selected));
@@ -240,7 +253,7 @@
       const delta=Math.abs(changedModel.lowest.balance-old.lowest.balance);
       const floorCrossed=(old.lowest.balance<floor)!==(changedModel.lowest.balance<floor);
       const material=delta>0&&(delta>=notificationPreference.threshold||floorCrossed);
-      if(!material) $('notificationPreview').textContent='“No alert: no qualifying material change.”';
+      if(!material) $('notificationPreview').textContent=selected==='pending'?'“No cash-improvement alert: paid status alone has not changed available cash. A separate verified cutoff-risk rule may still apply.”':'“No alert: no qualifying material change.”';
       else if(notificationPreference.delivery==='Off') $('notificationPreview').textContent='“Alerts off: the update remains available on the next visit.”';
       else if(notificationPreference.delivery==='In-app only') $('notificationPreview').textContent='In-app only: “Your saved cash plan changed. Review it privately in FinWise.”';
       else $('notificationPreview').textContent='Consent required before email: “Your saved cash plan changed. Review it privately in FinWise.”';
@@ -250,7 +263,8 @@
     ['decisionNote','reviewAck'].forEach(id=>$(id).addEventListener(id==='reviewAck'?'change':'input',()=>{$('saveReview').disabled=!canSave();}));
     $('saveReview').addEventListener('click',()=>{
       if(!canSave()) return;
-      $('reviewSaved').textContent='Saved in this browser session: '+$('decisionChoice').value+'. Reason: '+$('decisionNote').value.trim()+'. Source event: '+variants[selected].summary+'. Updated lowest cash: '+fmt(changedModel.lowest.balance)+'. No external action taken.';
+      const reviewClass=selected==='pending'?'Verification/status review, not a verified changed-facts engagement event.':selected==='none'?'Routine note, not a changed-facts engagement event.':'Simulated changed-facts decision review; would count only if evidence were verified in production.';
+      $('reviewSaved').textContent='Recorded in this browser session: '+$('decisionChoice').value+'. Reason: '+$('decisionNote').value.trim()+'. Source state: '+variants[selected].summary+'. Updated lowest cash: '+fmt(changedModel.lowest.balance)+'. '+reviewClass+' No external action taken.';
       $('reviewSaved').classList.add('visible');
     });
     $('savePreference').addEventListener('click',()=>{
