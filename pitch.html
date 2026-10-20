@@ -303,7 +303,10 @@
       previous.disabled = index === 0;
       next.disabled = index === slides.length - 1;
       var targetHash = '#slide-' + (index + 1);
-      if (window.location.hash !== targetHash) history.replaceState(null, '', targetHash);
+      if (window.location.hash !== targetHash) {
+        // Keep downloaded/file:// decks usable even if a browser restricts history writes.
+        try { history.replaceState(null, '', targetHash); } catch (error) { /* navigation still works */ }
+      }
     }
     previous.addEventListener('click', function () { show(index - 1); });
     next.addEventListener('click', function () { show(index + 1); });
