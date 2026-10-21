@@ -1,5 +1,11 @@
 # The Mechanic | FinWise
 
+### Visual: earn the next visit when the facts change
+
+![The reason to return: a decision delta grounded in verified evidence](../visual-story/07_The_Reason_To_Return.png)
+
+[See the complete slide sequence](../visual-story/README.md).
+
 > **Module 3: Retention & Engagement**  
 > **Mechanic:** *Decision Delta*, a trusted changed-facts review of a financial decision the customer already owns.  
 > **Strategic choice:** Earn a return when the underlying decision may change. Do not design for a daily login streak.  

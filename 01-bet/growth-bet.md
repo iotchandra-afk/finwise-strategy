@@ -1,5 +1,13 @@
 # The Bet | FinWise
 
+### Visual overview of the commercial challenge and evidence-gated approach
+
+![FinWise business pain: conversion and retention are symptoms, not a diagnosis](../visual-story/03_Business_Pain.png)
+
+![FinWise four-phase objective approach: audit, validate, test price and scale conditionally](../visual-story/05_The_Objective_Approach.png)
+
+[See the full 11-slide visual narrative](../visual-story/README.md).
+
 > **Module 1: Ignite a Product-Led Growth Motion**  
 > **Decision:** Prioritize learning how trials reach repeatable financial value before increasing paid acquisition. This is a strategic hypothesis to test, not a proven root cause.
 

@@ -1,5 +1,11 @@
 # The Solution | FinWise
 
+### Visual: first value worth trusting
+
+![The first value: a verified, defensible owner cash decision](../visual-story/06_The_First_Value.png)
+
+[See the complete slide sequence](../visual-story/README.md).
+
 > **Module 2: Acquisition & Activation**  
 > **Product decision:** Build a *decision-first* onboarding path that gets an owner-operated small business to a defensible cash decision with minimal setup and explicit data-quality checks.  
 > **Evidence status:** A prototype and a testable design hypothesis, **not** a measured conversion improvement or a demonstrated FinWise capability.

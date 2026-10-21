@@ -1,5 +1,11 @@
 # The Signals | FinWise
 
+### Visual: outcomes that distinguish learning from proven results
+
+![Outcomes and key takeaways: verified activation, repeat utility and profitable survival](../visual-story/10_Outcomes_And_Key_Takeaways.png)
+
+[See the complete slide sequence](../visual-story/README.md).
+
 > **Module 4: Data & Analytics**  
 > **Finding:** FinWise has a two-stage commercial leakage pattern. It does **not** yet have evidence identifying the behavioral cause.  
 > **Decision:** Measure the path to a trustworthy first decision and a verified second review, then establish whether those behaviors precede paid conversion and durable retention.  

@@ -1,5 +1,11 @@
 # The Model | FinWise
 
+### Visual: funding an evidence-gated investment decision
+
+![The investment decision: fund diagnosis and evidence before scaling](../visual-story/09_The_Investment_Decision.png)
+
+[See the complete slide sequence](../visual-story/README.md).
+
 > **Module 6: Pricing & Monetization**  
 > **Recommendation:** Keep the reverse trial, but make the commercial boundary correspond to *verified recurring decision value*, not access to a reassuring-looking dashboard. Test **$59 per business/month** for an **Owner Plus** subscription; it is a **candidate price, not a validated price or existing FinWise offer**.  
 > **Decision status:** Conditional packaging and pricing recommendation. No current FinWise price list, account-level behavior, willingness-to-pay evidence, connector costs or gross-margin data were supplied.

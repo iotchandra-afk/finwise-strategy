@@ -1,5 +1,11 @@
 # The Validation | FinWise
 
+### Visual: the proof must come from a guarded experiment
+
+![The proof: a preregistered, randomized onboarding experiment](../visual-story/08_The_Proof.png)
+
+[See the complete slide sequence](../visual-story/README.md).
+
 > **Module 5: Experimentation Methods**  
 > **Decision to test:** Does a **decision-first onboarding flow** cause more qualified SMB trials to reach a *trustworthy first financial decision*?  
 > **Method:** Business-account randomized controlled experiment, 50/50, with a fixed-horizon primary read.  

@@ -4,6 +4,11 @@
 **Chandra Kanojia · October 2026**  
 **Role perspective:** Senior Product Manager, financial-management SaaS for small businesses
 
+[![FinWise: Repair the value loop before buying more trials. Six decisions and the conditional 12-month investment plan.](./assets/featured-growth-thesis.webp)](./visual-story/README.md)
+
+**Executive strategy, at a glance:** Audit the trial-to-paid value loop before investing in acquisition. The roadmap distinguishes case facts, synthetic examples, proposed experiments and conditional investment gates. [**View all 11 selected slides, in order**](./visual-story/README.md) · [**Open the visual presentation**](./visual-story/index.html) · [**See the final reflection (Variation C)**](./visual-story/11_Personal_Reflection_Variation_C.png)
+
+
 > **Growth thesis:** FinWise should stop buying more trials into an unproven value loop. Help the right small-business owner reach one **verified financial decision**, make the next consequential review easier, and earn a per-business subscription **only when repeated value and unit economics justify it**.
 
 ## Executive judgment
