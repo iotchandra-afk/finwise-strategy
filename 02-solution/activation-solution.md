@@ -10,6 +10,10 @@
 > **Product decision:** Build a *decision-first* onboarding path that gets an owner-operated small business to a defensible cash decision with minimal setup and explicit data-quality checks.  
 > **Evidence status:** A prototype and a testable design hypothesis, **not** a measured conversion improvement or a demonstrated FinWise capability.
 
+**Executive visual:** The first value is a defensible cash decision, not a completed onboarding checklist.
+
+![Slide 06: The First Value](../assets/slides/06_The_First_Value.webp)
+
 ## 1. Aha moment: a decision the owner can defend
 
 **Proposed Aha:** *“I can see when a late customer payment could put payroll or an essential bill at risk, understand what the forecast assumes, and decide what to do before the cash gap occurs.”*

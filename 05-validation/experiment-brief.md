@@ -11,6 +11,10 @@
 > **Method:** Business-account randomized controlled experiment, 50/50, with a fixed-horizon primary read.  
 > **Status:** **Pre-registration proposal, not an experiment run or approved for production.** No actual FinWise traffic, activation baseline, trial length, incremental lift or test result has been supplied.
 
+**Executive visual:** A gated and randomized test of decision-first onboarding, conditional on diagnosing pre-value friction.
+
+![Slide 08: The Proof](../assets/slides/08_The_Proof.webp)
+
 ## 1. Why this is the experiment worth considering
 
 FinWise converts **2%** of trials to paid and retains **40%** of paying customers after a year. Those are business symptoms, not proof of onboarding failure. Modules 1–4 deliberately separated four competing causes: acquisition fit, difficulty reaching value, reverse-trial packaging, and a job too episodic to justify continued payment.

@@ -11,6 +11,10 @@
 > **Decision:** Measure the path to a trustworthy first decision and a verified second review, then establish whether those behaviors precede paid conversion and durable retention.  
 > **Evidence status:** Case-supplied aggregate outcomes, transparent arithmetic, and a proposed analytics design. **No customer-level dataset, statistical correlation, observed feature-usage lift or causal effect is claimed.**
 
+**Executive visual:** The staged, evidence-gated path from diagnosis to scaling.
+
+![Slide 05: The Objective Approach](../assets/slides/05_The_Objective_Approach.webp)
+
 ## 1. The data pattern we can actually defend
 
 The supplied case establishes **2% trial-to-paid conversion**, **40% one-year retention among paying customers**, and a growth approach still dependent on acquiring trials through advertising. That is a multiplicative business-model problem, not evidence that people need more reminders or more product features.

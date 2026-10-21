@@ -11,6 +11,12 @@
 > **Module 1: Ignite a Product-Led Growth Motion**  
 > **Decision:** Prioritize learning how trials reach repeatable financial value before increasing paid acquisition. This is a strategic hypothesis to test, not a proven root cause.
 
+**Executive visuals:** The commercial leakage, followed by the goal of a verified financial decision.
+
+![Slide 03: The Business Pain](../assets/slides/03_Business_Pain.webp)
+
+![Slide 04: The Goal](../assets/slides/04_The_Goal.webp)
+
 ## 1. Growth hypothesis
 
 **If FinWise helps a qualified small-business owner turn their own financial data into one trustworthy, actionable decision early in the reverse trial, and makes the next decision easier, then more users should become paying customers and stay.** The proposed mechanism is value experienced before the payment decision, followed by a recurring job worth paying for.

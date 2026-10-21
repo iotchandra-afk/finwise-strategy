@@ -11,6 +11,10 @@
 > **Strategic choice:** Earn a return when the underlying decision may change. Do not design for a daily login streak.  
 > **Evidence status:** Concept and interactive wireframe, not measured FinWise behavior or a verified product capability.
 
+**Executive visual:** Return only when verified, decision-changing facts justify a review.
+
+![Slide 07: The Reason to Return](../assets/slides/07_The_Reason_To_Return.webp)
+
 ## 1. The mechanic
 
 **The loop:** `save a decision → a material financial fact changes → see exactly what changed → reassess the decision → retain useful context for the next change`.

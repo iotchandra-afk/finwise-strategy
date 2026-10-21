@@ -10,6 +10,12 @@
 > **Recommendation:** Keep the reverse trial, but make the commercial boundary correspond to *verified recurring decision value*, not access to a reassuring-looking dashboard. Test **$59 per business/month** for an **Owner Plus** subscription; it is a **candidate price, not a validated price or existing FinWise offer**.  
 > **Decision status:** Conditional packaging and pricing recommendation. No current FinWise price list, account-level behavior, willingness-to-pay evidence, connector costs or gross-margin data were supplied.
 
+**Executive visuals:** How to make the funding decision, and what would justify expansion.
+
+![Slide 09: The Investment Decision](../assets/slides/09_The_Investment_Decision.webp)
+
+![Slide 10: Outcomes and Key Takeaways](../assets/slides/10_Outcomes_And_Key_Takeaways.webp)
+
 ## 1. Stage + model: product-market fit is not revenue-model fit
 
 **Stage:** The case says FinWise has reached product-market fit and is attempting the next phase of **product-led revenue expansion**. Its baseline is **2% trial-to-paid conversion** and **40% one-year paid-logo retention**, with paid advertising funding most trial acquisition. These numbers show weak monetization and survival; they do **not** establish whether the obstacle is first value, customer fit, a reverse-trial handoff, recurring need or price.

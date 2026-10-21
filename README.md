@@ -4,6 +4,15 @@
 **Chandra Kanojia · October 2026**  
 **Role perspective:** Senior Product Manager, financial-management SaaS for small businesses
 
+## Executive visual: the 12-month investment thesis
+
+[![FinWise executive growth thesis, experiment gates, and 12-month investment roadmap](./assets/finwise-growth-thesis.webp)](./assets/finwise-growth-thesis.webp)
+
+**The decision:** Repair the value loop before buying more trials. Diagnose first, validate a trustworthy financial decision, then fund scale only when retained paid value and contribution justify it.
+
+[**Explore the approved 11-slide narrative, in sequence**](./slides.md) · [**Open slide 11: personal reflection (Variation C)**](./assets/slides/11_Personal_Reflection_Variation_C.webp)
+
+
 [![FinWise: Repair the value loop before buying more trials. Six decisions and the conditional 12-month investment plan.](./assets/featured-growth-thesis.webp)](./visual-story/README.md)
 
 **Executive strategy, at a glance:** Audit the trial-to-paid value loop before investing in acquisition. The roadmap distinguishes case facts, synthetic examples, proposed experiments and conditional investment gates. [**View all 11 selected slides, in order**](./visual-story/README.md) · [**Open the visual presentation**](./visual-story/index.html) · [**See the final reflection (Variation C)**](./visual-story/11_Personal_Reflection_Variation_C.png)
